@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GreenwichCMS.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GreenwichCMS.Context
@@ -11,6 +12,7 @@ namespace GreenwichCMS.Context
     {
         public GreenwichContext() { }
         public GreenwichContext(DbContextOptions<GreenwichContext> options) : base(options) { }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Users>(entity =>

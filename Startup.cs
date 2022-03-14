@@ -14,6 +14,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore.SqlServer;
+using GreenwichCMS.DAO;
+using GreenwichCMS.DAO.Implementation;
+using AutoMapper;
+using GreenwichCMS.Commons;
+using GreenwichCMS.Services;
+using GreenwichCMS.Services.Implementation;
 
 namespace GreenwichCMS
 {
@@ -37,6 +43,16 @@ namespace GreenwichCMS
             });
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<GreenwichContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddScoped<IUserRepo, UserRepo>();
+            services.AddScoped<IUserServices, UserServices>();
+            var mapperConfig = new MapperConfiguration(mc =>
+                {
+                    mc.AddProfile(new Mapping());
+                });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +64,7 @@ namespace GreenwichCMS
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GreenwichCMS v1"));
             }
-            
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

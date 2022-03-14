@@ -34,14 +34,11 @@ namespace GreenwichCMS.Migrations
                     b.Property<Guid>("ReplyFor")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ReplyTargetUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("CommentId");
 
                     b.HasIndex("IdeaId");
 
-                    b.HasIndex("ReplyTargetUserId");
+                    b.HasIndex("ReplyFor");
 
                     b.ToTable("Comment");
                 });
@@ -167,6 +164,9 @@ namespace GreenwichCMS.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserId");
 
                     b.HasIndex("RoleId");
@@ -182,13 +182,15 @@ namespace GreenwichCMS.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GreenwichCMS.Models.Users", "ReplyTarget")
+                    b.HasOne("GreenwichCMS.Models.Users", "Users")
                         .WithMany()
-                        .HasForeignKey("ReplyTargetUserId");
+                        .HasForeignKey("ReplyFor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Idea");
 
-                    b.Navigation("ReplyTarget");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("GreenwichCMS.Models.Idea", b =>

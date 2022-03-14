@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GreenwichCMS.Migrations
 {
-    public partial class Init : Migration
+    public partial class UpdateUserName : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,6 +27,7 @@ namespace GreenwichCMS.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(6)", maxLength: 6, nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -74,7 +75,6 @@ namespace GreenwichCMS.Migrations
                     CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdeaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ReplyFor = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReplyTargetUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -87,11 +87,11 @@ namespace GreenwichCMS.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comment_Users_ReplyTargetUserId",
-                        column: x => x.ReplyTargetUserId,
+                        name: "FK_Comment_Users_ReplyFor",
+                        column: x => x.ReplyFor,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,9 +145,9 @@ namespace GreenwichCMS.Migrations
                 column: "IdeaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_ReplyTargetUserId",
+                name: "IX_Comment_ReplyFor",
                 table: "Comment",
-                column: "ReplyTargetUserId");
+                column: "ReplyFor");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Idea_UserId",
