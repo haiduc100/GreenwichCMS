@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GreenwichCMS.Context;
 using GreenwichCMS.Models.DTOs;
 using GreenwichCMS.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreenwichCMS.Controllers
@@ -20,6 +21,28 @@ namespace GreenwichCMS.Controllers
         {
             _userServices = userServices;
         }
+        [HttpGet]
+        public ActionResult<IEnumerable<UserDTOs>> GetUsers()
+        {
+            if (ModelState.IsValid)
+            {
+
+                return Ok(_userServices.GetUsers());
+            }
+            return NotFound();
+
+        }
+        [HttpGet("{id}")]
+        public ActionResult GetUserById(Guid id)
+        {
+            if (ModelState.IsValid)
+            {
+
+                return Ok(_userServices.GetUserById(id));
+            }
+            return NotFound();
+        }
+
         [HttpPost]
         public ActionResult CreateUser(UserDTOs user)
         {
@@ -35,5 +58,31 @@ namespace GreenwichCMS.Controllers
             }
             return BadRequest();
         }
+        [HttpPut]
+        public ActionResult UpdateUser(UserDTOs user)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var updatedUser = _userServices.UpdateUser(user);
+                if (updatedUser)
+                {
+                    return Ok(updatedUser);
+                }
+            }
+            return BadRequest("Fail to update user");
+        }
+        [HttpDelete]
+        public IActionResult DeleteUser(Guid id)
+        {
+            if (ModelState.IsValid)
+            {
+                _userServices.DeleteUser(id);
+                return Ok("Delete user successfully!");
+            }
+            return BadRequest("Delete user unsuccessfully!");
+        }
+
+
     }
 }

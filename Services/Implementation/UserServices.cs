@@ -23,21 +23,28 @@ namespace GreenwichCMS.Services.Implementation
         public bool CreateUser(UserDTOs user)
         {
             var userNew = _mapper.Map<Users>(user);
-            // userNew.UserId = new Guid();
             string password = MD5Hash.Hash.Content(userNew.Password);
             userNew.Password = password;
             return _userRepo.CreateUser(userNew);
-
         }
 
         public bool DeleteUser(Guid userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _userRepo.DeleteUser(userId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"User could not be Delete: {ex.Message}");
+            }
         }
 
         public Users GetUserById(Guid id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<Users>(_userRepo.GetUserById(id));
+
         }
 
         public Users GetUserByNameAndPassword(string userName, string password)
@@ -45,14 +52,25 @@ namespace GreenwichCMS.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Users> GetUsers()
+        public IEnumerable<UserDTOs> GetUsers()
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IEnumerable<Users>, IEnumerable<UserDTOs>>(_userRepo.GetUsers());
         }
 
         public bool UpdateUser(UserDTOs user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                
+                var userNew = _mapper.Map<Users>(user);
+                string password = MD5Hash.Hash.Content(userNew.Password);
+                userNew.Password = password;
+                return _userRepo.UpdateUser(userNew);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"User could not be saved: {ex.Message}");
+            }
         }
     }
 }

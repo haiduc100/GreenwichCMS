@@ -9,7 +9,7 @@ namespace GreenwichCMS.Services
 {
     public interface IUserServices
     {
-        IEnumerable<Users> GetUsers();
+        IEnumerable<UserDTOs> GetUsers();
          Users GetUserById(Guid id);
          Users GetUserByNameAndPassword(string userName, string password);
          bool CreateUser(UserDTOs user);

@@ -29,12 +29,23 @@ namespace GreenwichCMS.DAO.Implementation
 
         public bool DeleteUser(Guid userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = _greenwichContext.Users.FirstOrDefault(x => x.UserId == userId);
+                _greenwichContext.Remove(user);
+                _greenwichContext.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                throw new Exception($"User Null!");
+            }
         }
 
         public Users GetUserById(Guid id)
         {
             var user = _greenwichContext.Users.Where(x => x.UserId == id).FirstOrDefault();
+            _greenwichContext.Users.Remove(user);
             return user;
         }
 
@@ -45,12 +56,22 @@ namespace GreenwichCMS.DAO.Implementation
 
         public IEnumerable<Users> GetUsers()
         {
-            throw new NotImplementedException();
+            return _greenwichContext.Users.ToList();
         }
 
-        public bool UpdateUser(UserDTOs user)
+        public bool UpdateUser(Users user)
         {
-            throw new NotImplementedException();
+            var currentUser = _greenwichContext.Users.Single(x => x.UserId == user.UserId);
+            currentUser.DateOfBirth = user.DateOfBirth;
+            currentUser.Gender = user.Gender;
+            currentUser.FirstName = user.FirstName;
+            currentUser.LastName = user.LastName;
+            currentUser.RoleId = user.RoleId;
+            currentUser.Password = user.Password;
+
+            _greenwichContext.SaveChanges();
+
+            return true;
         }
     }
 }

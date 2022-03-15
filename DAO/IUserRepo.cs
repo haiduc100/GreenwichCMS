@@ -13,7 +13,7 @@ namespace GreenwichCMS.DAO
          Users GetUserById(Guid id);
          Users GetUserByNameAndPassword(string userName, string password);
          bool CreateUser(Users user);
-         bool UpdateUser(UserDTOs user);
+         bool UpdateUser(Users user);
          bool DeleteUser(Guid userId);
         
     }

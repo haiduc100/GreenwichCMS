@@ -13,7 +13,7 @@ namespace GreenwichCMS.Commons
         public Mapping()
         {
             // Add as many of these lines as you need to map your objects
-            CreateMap<UserDTOs, Users>();
+            CreateMap<UserDTOs, Users>().ReverseMap();
         }
     }
 
