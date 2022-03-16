@@ -47,21 +47,41 @@ namespace GreenwichCMS.Services.Implementation
 
         }
 
-        public Users GetUserByNameAndPassword(string userName, string password)
+        public UserDTOs GetUserByNameAndPassword(string userName, string password)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<Users, UserDTOs>(_userRepo.GetUserByNameAndPassword(userName, password));
+        }
+        public string ChangePassword(Guid id, string newPassword, string oldPassword)
+        {
+            try
+            {
+                _userRepo.ChangePassword(id, newPassword, oldPassword);
+                return "ok";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         public IEnumerable<UserDTOs> GetUsers()
         {
+            var flag = _userRepo.GetUsers();
+
             return _mapper.Map<IEnumerable<Users>, IEnumerable<UserDTOs>>(_userRepo.GetUsers());
         }
+
+        // public IEnumerable<UserDTOs> GetUsers(PageParams pageParams)
+        // {
+        //     var users = _userRepo.GetUsers(pageParams);
+        //     return _mapper.Map<IEnumerable<Users>, IEnumerable<UserDTOs>>(users);
+        // }
 
         public bool UpdateUser(UserDTOs user)
         {
             try
             {
-                
+
                 var userNew = _mapper.Map<Users>(user);
                 string password = MD5Hash.Hash.Content(userNew.Password);
                 userNew.Password = password;
@@ -71,6 +91,16 @@ namespace GreenwichCMS.Services.Implementation
             {
                 throw new Exception($"User could not be saved: {ex.Message}");
             }
+        }
+
+        // Users IUserServices.GetUserByNameAndPassword(string userName, string password)
+        // {
+        //     return _mapper.Map<Users, UserDTOs>(_userRepo.GetUserByNameAndPassword(userName, password));
+        // }
+
+        void IUserServices.ChangePassword(Guid id, string newPassword, string oldPassword)
+        {
+            throw new NotImplementedException();
         }
     }
 }

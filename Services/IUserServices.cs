@@ -10,10 +10,14 @@ namespace GreenwichCMS.Services
     public interface IUserServices
     {
         IEnumerable<UserDTOs> GetUsers();
-         Users GetUserById(Guid id);
-         Users GetUserByNameAndPassword(string userName, string password);
-         bool CreateUser(UserDTOs user);
-         bool UpdateUser(UserDTOs user);
-         bool DeleteUser(Guid userId);
+        // IEnumerable<UserDTOs> GetUsers(PageParams pageParams);
+        Users GetUserById(Guid id);
+        // Users GetUserByNameAndPassword(string userName, string password);
+        UserDTOs GetUserByNameAndPassword(string userName, string password);
+
+        bool CreateUser(UserDTOs user);
+        bool UpdateUser(UserDTOs user);
+        bool DeleteUser(Guid userId);
+        public void ChangePassword(Guid id, string newPassword, string oldPassword);
     }
 }

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GreenwichCMS.Context;
+using GreenwichCMS.Models;
 using GreenwichCMS.Models.DTOs;
 using GreenwichCMS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,23 +16,47 @@ namespace GreenwichCMS.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
-        // private readonly GreenwichContext _greenwichContext;
-        // private readonly ILogger<UserRepo> _logger;
         private readonly IUserServices _userServices;
         public UsersController(IUserServices userServices)
         {
             _userServices = userServices;
         }
         [HttpGet]
+        // public ActionResult<IEnumerable<UserDTOs>> GetUsers(PageParams pageParams)
+        // {
+
+        //     var listUsers = _userServices.GetUsers(pageParams);
+        //     var count = listUsers.Count();
+        //     if (listUsers.Any())
+        //     {
+        //         listUsers = listUsers.OrderBy(on => on.RoleId)
+        //                     .Skip((pageParams.PageNumber - 1) * pageParams.PageSize)
+        //                     .Take(pageParams.PageSize)
+        //                     .ToList();
+
+        //         var metaData = new
+        //         {
+        //             listUsers,
+        //             count
+        //         };
+        //         return Ok(metaData);
+        //     }
+        //     return Ok(new
+        //     {
+        //         listUsers = new List<Object>(),
+        //         count = 0
+        //     });
+
+        // }
+        // [Authorize(Roles = "Admin")]
+
         public ActionResult<IEnumerable<UserDTOs>> GetUsers()
         {
             if (ModelState.IsValid)
             {
-
                 return Ok(_userServices.GetUsers());
             }
             return NotFound();
-
         }
         [HttpGet("{id}")]
         public ActionResult GetUserById(Guid id)

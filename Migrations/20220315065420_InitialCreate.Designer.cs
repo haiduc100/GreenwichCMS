@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GreenwichCMS.Migrations
 {
     [DbContext(typeof(GreenwichContext))]
-    [Migration("20220314155642_UpdateUserName")]
-    partial class UpdateUserName
+    [Migration("20220315065420_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

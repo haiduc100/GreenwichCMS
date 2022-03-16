@@ -20,6 +20,11 @@ using AutoMapper;
 using GreenwichCMS.Commons;
 using GreenwichCMS.Services;
 using GreenwichCMS.Services.Implementation;
+using GreenwichCMS.Models;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 
 namespace GreenwichCMS
 {
@@ -44,8 +49,39 @@ namespace GreenwichCMS
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<GreenwichContext>(options => options.UseSqlServer(connectionString));
 
+            // In production, the React files will be served from this directory
+            //services.AddSpaStaticFiles(configuration =>
+            //{
+            //    configuration.RootPath = "ClientApp/build";
+            //});
+
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IRoleRepo, RoleRepo>();
+            services.AddScoped<IRoleServices, RoleServices>();
+
+            // Adding Authentication  
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options => // Adding Jwt Bearer  
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateIssuerSigningKey = true,
+                    ClockSkew = TimeSpan.Zero,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                };
+            });
+
+            services.AddTransient<ITokenServices, TokenServices>();
+
             var mapperConfig = new MapperConfiguration(mc =>
                 {
                     mc.AddProfile(new Mapping());
@@ -64,16 +100,37 @@ namespace GreenwichCMS
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GreenwichCMS v1"));
             }
-
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors(builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
             });
         }
     }
