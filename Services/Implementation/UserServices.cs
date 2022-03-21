@@ -22,10 +22,8 @@ namespace GreenwichCMS.Services.Implementation
 
         public bool CreateUser(UserDTOs user)
         {
-            var userNew = _mapper.Map<Users>(user);
-            string password = MD5Hash.Hash.Content(userNew.Password);
-            userNew.Password = password;
-            return _userRepo.CreateUser(userNew);
+            user.Password = MD5Hash.Hash.Content(user.Password);
+            return _userRepo.CreateUser(user);
         }
 
         public bool DeleteUser(Guid userId)
@@ -41,14 +39,15 @@ namespace GreenwichCMS.Services.Implementation
             }
         }
 
-        public Users GetUserById(Guid id)
+        public UserDTOs GetUserById(Guid id)
         {
-            return _mapper.Map<Users>(_userRepo.GetUserById(id));
+            return _mapper.Map<UserDTOs>(_userRepo.GetUserById(id));
 
         }
 
         public UserDTOs GetUserByNameAndPassword(string userName, string password)
         {
+            password = MD5Hash.Hash.Content(password);
             return _mapper.Map<Users, UserDTOs>(_userRepo.GetUserByNameAndPassword(userName, password));
         }
         public string ChangePassword(Guid id, string newPassword, string oldPassword)
@@ -64,39 +63,26 @@ namespace GreenwichCMS.Services.Implementation
             }
         }
 
-        public IEnumerable<UserDTOs> GetUsers()
+
+
+        public IEnumerable<UserDTOs> GetUsers(PageParams pageParams)
         {
-            var flag = _userRepo.GetUsers();
-
-            return _mapper.Map<IEnumerable<Users>, IEnumerable<UserDTOs>>(_userRepo.GetUsers());
+            var users = _userRepo.GetUsers(pageParams);
+            return _mapper.Map<IEnumerable<Users>, IEnumerable<UserDTOs>>(users);
         }
-
-        // public IEnumerable<UserDTOs> GetUsers(PageParams pageParams)
-        // {
-        //     var users = _userRepo.GetUsers(pageParams);
-        //     return _mapper.Map<IEnumerable<Users>, IEnumerable<UserDTOs>>(users);
-        // }
 
         public bool UpdateUser(UserDTOs user)
         {
             try
             {
-
-                var userNew = _mapper.Map<Users>(user);
-                string password = MD5Hash.Hash.Content(userNew.Password);
-                userNew.Password = password;
-                return _userRepo.UpdateUser(userNew);
+                user.Password = MD5Hash.Hash.Content(user.Password);
+                return _userRepo.UpdateUser(user);
             }
             catch (Exception ex)
             {
                 throw new Exception($"User could not be saved: {ex.Message}");
             }
         }
-
-        // Users IUserServices.GetUserByNameAndPassword(string userName, string password)
-        // {
-        //     return _mapper.Map<Users, UserDTOs>(_userRepo.GetUserByNameAndPassword(userName, password));
-        // }
 
         void IUserServices.ChangePassword(Guid id, string newPassword, string oldPassword)
         {

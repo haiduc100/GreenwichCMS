@@ -20,9 +20,21 @@ namespace GreenwichCMS.DAO.Implementation
             _logger = logger;
         }
 
-        public bool CreateUser(Users user)
+        public bool CreateUser(UserDTOs user)
         {
-            _greenwichContext.Users.Add(user);
+            var role = _greenwichContext.Roles.FirstOrDefault(x => x.RoleName == user.Role);
+            var newUser = new Users
+            {
+                DateOfBirth = user.DateOfBirth,
+                FirstName = user.FirstName,
+                Gender = user.Gender,
+                LastName = user.LastName,
+                Password = user.Password,
+                UserName = user.UserName,
+                Role = role,
+                RoleId = role.RoleId
+            };
+            _greenwichContext.Users.Add(newUser);
             _greenwichContext.SaveChanges();
 
             return true;
@@ -45,8 +57,7 @@ namespace GreenwichCMS.DAO.Implementation
 
         public Users GetUserById(Guid id)
         {
-            var user = _greenwichContext.Users.Where(x => x.UserId == id).FirstOrDefault();
-            _greenwichContext.Users.Remove(user);
+            var user = _greenwichContext.Users.Where(x => x.UserId == id).Include("Role").FirstOrDefault();
             return user;
         }
 
@@ -54,16 +65,11 @@ namespace GreenwichCMS.DAO.Implementation
         {
             try
             {
-                var userAndPassword = userName + " " + password;
-
-                var currentUsers = _greenwichContext.Users.Where(b=>
+                var currentUsers = _greenwichContext.Users.Where(b =>
                     b.UserName == userName &&
                     b.Password == password
-                 ).ToArray();
-
+                 ).Include("Role");
                 var currentUser = currentUsers.FirstOrDefault(user => user.UserName.Equals(userName) && user.Password.Equals(password));
-
-                
                 return currentUser;
             }
             catch
@@ -96,34 +102,32 @@ namespace GreenwichCMS.DAO.Implementation
             }
         }
 
-        // public IEnumerable<Users> GetUsers(PageParams pageParams)
-        // {
-        //     var listUsers = _greenwichContext.Users.ToList();
-
-
-        //     if (pageParams.SearchName != null)
-        //     {
-        //         var p = pageParams.SearchName;
-        //         listUsers = listUsers.Where(x => x.UserName.Contains(pageParams.SearchName)
-        //              || x.FirstName.Contains(pageParams.SearchName)
-        //              || x.LastName.Contains(pageParams.SearchName)
-        //              || (x.LastName + " " + x.FirstName).Contains(pageParams.SearchName)
-        //              ).ToList();
-        //     }
-        //     return listUsers;
-        // }
-        public IEnumerable<Users> GetUsers()
+        public IEnumerable<Users> GetUsers(PageParams pageParams)
         {
-            return _greenwichContext.Users.Include("Role").ToList();
+            var listUsers = _greenwichContext.Users.Include("Role").ToList();
+
+            if (pageParams.SearchName != null)
+            {
+                var p = pageParams.SearchName;
+                listUsers = listUsers.Where(x => x.UserName.Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)
+                     || x.FirstName.Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)
+                     || x.LastName.Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)
+                     || (x.LastName + " " + x.FirstName).Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)
+                     ).ToList();
+            }
+            return listUsers;
         }
-        public bool UpdateUser(Users user)
+
+
+        public bool UpdateUser(UserDTOs user)
         {
             var currentUser = _greenwichContext.Users.Single(x => x.UserId == user.UserId);
+            var role = _greenwichContext.Roles.Single(x => x.RoleName == user.Role);
             currentUser.DateOfBirth = user.DateOfBirth;
             currentUser.Gender = user.Gender;
             currentUser.FirstName = user.FirstName;
             currentUser.LastName = user.LastName;
-            currentUser.RoleId = user.RoleId;
+            currentUser.RoleId = role.RoleId;
             currentUser.Password = user.Password;
 
             _greenwichContext.SaveChanges();

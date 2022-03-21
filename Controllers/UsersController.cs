@@ -21,52 +21,39 @@ namespace GreenwichCMS.Controllers
         {
             _userServices = userServices;
         }
+
         [HttpGet]
-        // public ActionResult<IEnumerable<UserDTOs>> GetUsers(PageParams pageParams)
-        // {
-
-        //     var listUsers = _userServices.GetUsers(pageParams);
-        //     var count = listUsers.Count();
-        //     if (listUsers.Any())
-        //     {
-        //         listUsers = listUsers.OrderBy(on => on.RoleId)
-        //                     .Skip((pageParams.PageNumber - 1) * pageParams.PageSize)
-        //                     .Take(pageParams.PageSize)
-        //                     .ToList();
-
-        //         var metaData = new
-        //         {
-        //             listUsers,
-        //             count
-        //         };
-        //         return Ok(metaData);
-        //     }
-        //     return Ok(new
-        //     {
-        //         listUsers = new List<Object>(),
-        //         count = 0
-        //     });
-
-        // }
-        // [Authorize(Roles = "Admin")]
-
-        public ActionResult<IEnumerable<UserDTOs>> GetUsers()
+        public ActionResult<IEnumerable<UserDTOs>> GetUsers([FromQuery] PageParams pageParams)
         {
-            if (ModelState.IsValid)
+
+            var listUsers = _userServices.GetUsers(pageParams);
+            var count = listUsers.Count();
+            if (listUsers.Any())
             {
-                return Ok(_userServices.GetUsers());
+                listUsers = listUsers.OrderBy(on => on.FirstName)
+                            .Skip((pageParams.PageNumber - 1) * pageParams.PageSize)
+                            .Take(pageParams.PageSize)
+                            .ToList();
+
+                var metaData = new
+                {
+                    listUsers,
+                    count
+                };
+                return Ok(metaData);
             }
-            return NotFound();
+            return Ok(new
+            {
+                listUsers = new List<Object>(),
+                count = 0
+            });
+
         }
+
         [HttpGet("{id}")]
         public ActionResult GetUserById(Guid id)
         {
-            if (ModelState.IsValid)
-            {
-
-                return Ok(_userServices.GetUserById(id));
-            }
-            return NotFound();
+            return Ok(_userServices.GetUserById(id));
         }
 
         [HttpPost]
