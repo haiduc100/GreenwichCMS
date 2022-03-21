@@ -15,7 +15,7 @@ namespace GreenwichCMS.Models
         public virtual Guid IdeaId { get; set; }
         public Idea Idea { get; set; }
         [ForeignKey("Users")]
-        public virtual Guid ReplyFor { get; set; }
+        public virtual Guid ReplyBy { get; set; }
         public Users Users { get; set; }
         public string Content { get; set; }
 
