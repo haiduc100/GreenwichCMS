@@ -4,14 +4,16 @@ using GreenwichCMS.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GreenwichCMS.Migrations
 {
     [DbContext(typeof(GreenwichContext))]
-    partial class GreenwichContextModelSnapshot : ModelSnapshot
+    [Migration("20220322015444_InitialCreate2")]
+    partial class InitialCreate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,6 +91,9 @@ namespace GreenwichCMS.Migrations
                 {
                     b.Property<Guid>("IdeaCategoryId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdeaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
@@ -197,8 +202,7 @@ namespace GreenwichCMS.Migrations
                 {
                     b.HasOne("GreenwichCMS.Models.IdeaCategory", "IdeaCategory")
                         .WithMany("Idea")
-                        .HasForeignKey("IdeaCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdeaCategoryId");
 
                     b.HasOne("GreenwichCMS.Models.Users", "User")
                         .WithMany()

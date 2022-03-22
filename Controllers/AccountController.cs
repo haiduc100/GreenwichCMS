@@ -38,10 +38,18 @@ namespace GreenwichCMS.Controllers
                 return Ok(
                   new
                   {
-                      token = token,
-
+                      Token = token,
+                      User = new
+                      {
+                          currentUser.UserName,
+                          currentUser.FirstName,
+                          currentUser.LastName,
+                          currentUser.Gender,
+                          currentUser.DateOfBirth,
+                          currentUser.Role
+                      }
                   }
-                  ); ;
+                  );
             }
             return Unauthorized();
         }
@@ -73,7 +81,7 @@ namespace GreenwichCMS.Controllers
     public class ChangePassModel
     {
         public Guid Id { get; set; }
-        public string newPassword { get; set; }
-        public string oldPassword { get; set; }
+        public string NewPassword { get; set; }
+        public string OldPassword { get; set; }
     }
 }

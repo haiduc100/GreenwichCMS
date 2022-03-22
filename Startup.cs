@@ -59,6 +59,10 @@ namespace GreenwichCMS
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IRoleRepo, RoleRepo>();
             services.AddScoped<IRoleServices, RoleServices>();
+            services.AddScoped<IideaServices, IdeaService>();
+            services.AddScoped<IIdeaRepo, IdeaRepo>();
+            services.AddScoped<ICategoryRepo, CategoryRepo>();
+            services.AddScoped<ICategoryService, CategoryService>();
 
             // Adding Authentication  
             services.AddAuthentication(options =>

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,9 +12,7 @@ namespace GreenwichCMS.Models
     {
         [Key]
         public Guid IdeaCategoryId { get; set; }
-        [ForeignKey("Idea")]
-        public virtual Guid IdeaId { get; set; }
-        public Idea Idea { get; set; }
+        public IEnumerable<Idea> Idea { get; set; }
         public string Title { get; set; }
     }
 }

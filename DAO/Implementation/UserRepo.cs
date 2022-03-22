@@ -13,11 +13,9 @@ namespace GreenwichCMS.DAO.Implementation
     public class UserRepo : IUserRepo
     {
         private readonly GreenwichContext _greenwichContext;
-        private readonly ILogger<UserRepo> _logger;
-        public UserRepo(GreenwichContext greenwichContext, ILogger<UserRepo> logger)
+        public UserRepo(GreenwichContext greenwichContext)
         {
             _greenwichContext = greenwichContext;
-            _logger = logger;
         }
 
         public bool CreateUser(UserDTOs user)

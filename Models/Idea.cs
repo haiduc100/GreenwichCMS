@@ -19,7 +19,8 @@ namespace GreenwichCMS.Models
         public string Content { get; set; }
         public DateTime FirstClosureDate { get; set; }
         public DateTime FinalClosureDate { get; set; }
-        public string Privacy { get; set; }
+        public bool Privacy { get; set; }
         
+        public IdeaCategory IdeaCategory { get; set; }
     }
 }

@@ -22,11 +22,16 @@ namespace GreenwichCMS.Context
                 entity.Property(p => p.LastName).HasMaxLength(255);
                 entity.Property(p => p.Gender).HasMaxLength(6);
             });
-            //modelBuilder.Entity<Idea>(entity =>
-            //{
+            modelBuilder.Entity<Idea>(entity =>
+            {
+                entity.HasOne(p => p.User).WithMany();
+                entity.HasOne(p => p.IdeaCategory).WithMany(p => p.Idea);
+            });
 
-            //    //entity.HasOne(p => p.User).WithMany(p=>p.UserId)
-            //});
+            modelBuilder.Entity<IdeaCategory>(entity =>
+            {
+                entity.HasMany(p=>p.Idea).WithOne(p=>p.IdeaCategory).OnDelete(DeleteBehavior.Cascade);
+            });
             //modelBuilder.Entity<Reaction>(entity =>
             //{
 
@@ -34,7 +39,7 @@ namespace GreenwichCMS.Context
             //modelBuilder.Entity<Comment>(entity =>
             //{
 
-            //}); 
+            //});
             //modelBuilder.Entity<IdeaCategory>(entity =>
             //{
 

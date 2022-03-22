@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GreenwichCMS.Models;
+using GreenwichCMS.Models.DTOs;
 
 namespace GreenwichCMS.DAO
 {
-    public class IIdeaRepo
+    public interface IIdeaRepo
     {
-        // public IEnumerable<Idea> GetIdea();
+        public IEnumerable<Idea> GetIdea(PageParams pageParams);
+        public string CreateIdea(IdeaDTOs idea);
+        public string UpdateIdea(Idea idea);
+        public string DeleteIdea(Guid ideaId);
 
     }
 }
