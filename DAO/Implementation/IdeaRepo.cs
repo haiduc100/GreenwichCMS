@@ -72,7 +72,7 @@ namespace GreenwichCMS.DAO.Implementation
 
         public IEnumerable<Idea> GetIdea()
         {
-            var listIdeas = _greenwichContext.Idea.Include(p => p.User).Include(p => p.IdeaCategory).Include(p=>p.Reactions);
+            var listIdeas = _greenwichContext.Idea.Include(p => p.User).ThenInclude(p=>p.Role).Include(p => p.IdeaCategory).Include(p=>p.Reactions);
             return listIdeas;
         }
 
