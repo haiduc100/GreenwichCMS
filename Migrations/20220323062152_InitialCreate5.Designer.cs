@@ -4,14 +4,16 @@ using GreenwichCMS.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GreenwichCMS.Migrations
 {
     [DbContext(typeof(GreenwichContext))]
-    partial class GreenwichContextModelSnapshot : ModelSnapshot
+    [Migration("20220323062152_InitialCreate5")]
+    partial class InitialCreate5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,7 +214,7 @@ namespace GreenwichCMS.Migrations
             modelBuilder.Entity("GreenwichCMS.Models.Reaction", b =>
                 {
                     b.HasOne("GreenwichCMS.Models.Idea", "Idea")
-                        .WithMany("Reactions")
+                        .WithMany()
                         .HasForeignKey("IdeaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -237,11 +239,6 @@ namespace GreenwichCMS.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("GreenwichCMS.Models.Idea", b =>
-                {
-                    b.Navigation("Reactions");
                 });
 
             modelBuilder.Entity("GreenwichCMS.Models.IdeaCategory", b =>

@@ -32,8 +32,17 @@ namespace GreenwichCMS.Controllers
             {
                 listUsers = listUsers.OrderBy(on => on.FirstName)
                             .Skip((pageParams.PageNumber - 1) * pageParams.PageSize)
-                            .Take(pageParams.PageSize)
-                            .ToList();
+                            .Take(pageParams.PageSize);
+
+                if (pageParams.SearchName != null)
+                {
+                    var p = pageParams.SearchName;
+                    listUsers = listUsers.Where(x => x.UserName.Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)
+                         || x.FirstName.Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)
+                         || x.LastName.Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)
+                         || (x.LastName + " " + x.FirstName).Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)
+                         ).ToList();
+                }
 
                 var metaData = new
                 {

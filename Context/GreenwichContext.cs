@@ -12,7 +12,7 @@ namespace GreenwichCMS.Context
     {
         public GreenwichContext() { }
         public GreenwichContext(DbContextOptions<GreenwichContext> options) : base(options) { }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Users>(entity =>
@@ -26,11 +26,12 @@ namespace GreenwichCMS.Context
             {
                 entity.HasOne(p => p.User).WithMany();
                 entity.HasOne(p => p.IdeaCategory).WithMany(p => p.Idea);
+                entity.HasMany(p => p.Reactions).WithOne(p => p.Idea);
             });
 
             modelBuilder.Entity<IdeaCategory>(entity =>
             {
-                entity.HasMany(p=>p.Idea).WithOne(p=>p.IdeaCategory).OnDelete(DeleteBehavior.Cascade);
+                entity.HasMany(p => p.Idea).WithOne(p => p.IdeaCategory).OnDelete(DeleteBehavior.Cascade);
             });
             //modelBuilder.Entity<Reaction>(entity =>
             //{

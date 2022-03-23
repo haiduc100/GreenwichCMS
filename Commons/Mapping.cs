@@ -19,17 +19,17 @@ namespace GreenwichCMS.Commons
 
             CreateMap<Idea, IdeaDTOs>()
                  .ForMember(des => des.IdeaCategoryName, act => act.MapFrom(src => src.IdeaCategory.Title))
-                 .ForMember(des => des.User, act => act.MapFrom(src => new UserDTOs
-                 {
-                     DateOfBirth = src.User.DateOfBirth,
-                     FirstName = src.User.FirstName,
-                     Gender = src.User.Gender,
-                     LastName = src.User.LastName,
-                     UserId = src.User.UserId,
-                     Role = src.User.Role.RoleName,
-                 }
-                 ));
+                 .ForMember(des => des.UserName, act => act.MapFrom(src => src.User.UserName))
+                 .ForMember(des => des.UserRole, act => act.MapFrom(src => src.User.Role.RoleName))
+                 .ForMember(des => des.DisLikeCount, act => act.MapFrom(src => src.Reactions.Where(p => !p.Context).Count()))
+                 .ForMember(des => des.LikeCount, act => act.MapFrom(src => src.Reactions.Where(p => p.Context).Count()))
+                 ;
             CreateMap<IdeaCategory, IdeaCategoryDTOs>().ReverseMap();
+
+            CreateMap<Reaction, ReactionDTOs>()
+                .ForMember(des => des.UserName, act => act.MapFrom(src => src.User.UserName))
+                .ForMember(des => des.IdeaTitle, act => act.MapFrom(src => src.Idea.Title)).ReverseMap();
+
         }
     }
 

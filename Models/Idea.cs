@@ -20,7 +20,7 @@ namespace GreenwichCMS.Models
         public DateTime FirstClosureDate { get; set; }
         public DateTime FinalClosureDate { get; set; }
         public bool Privacy { get; set; }
-        
         public IdeaCategory IdeaCategory { get; set; }
+        public IEnumerable<Reaction> Reactions { get; set; }
     }
 }

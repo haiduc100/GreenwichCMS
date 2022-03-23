@@ -28,10 +28,10 @@ namespace GreenwichCMS.Services.Implementation
             return signal;
         }
 
-        public IEnumerable<IdeaDTOs> GetIdea(PageParams pageParams)
+        public IEnumerable<IdeaDTOs> GetIdea()
         {
-            var listIdeas = _IdeaRepo.GetIdea(pageParams);
-            return _mapper.Map<IEnumerable<Idea>, IEnumerable<IdeaDTOs>>(listIdeas);
+            var listIdeas = _IdeaRepo.GetIdea();
+            return _mapper.Map<IEnumerable<object>, IEnumerable<IdeaDTOs>>(listIdeas);
         }
 
         public string UpdateIdea(IdeaDTOs idea)

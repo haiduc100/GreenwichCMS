@@ -7,7 +7,7 @@ namespace GreenwichCMS.Services.Implementation
 {
     public interface IideaServices
     {
-        public IEnumerable<IdeaDTOs> GetIdea(PageParams pageParams);
+        public IEnumerable<IdeaDTOs> GetIdea();
         public string CreateIdea(IdeaDTOs idea);
         public string UpdateIdea(IdeaDTOs idea);
         public string DeleteIdea(Guid ideaId);

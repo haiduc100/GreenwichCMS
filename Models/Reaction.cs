@@ -17,6 +17,6 @@ namespace GreenwichCMS.Models
         [ForeignKey("Idea")]
         public virtual Guid IdeaId { get; set; }
         public Idea Idea { get; set; }
-        public string Context { get; set; } //Like or dislike
+        public bool Context { get; set; } //True :Like or False: dislike
     }
 }

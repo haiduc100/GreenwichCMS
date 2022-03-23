@@ -20,7 +20,7 @@ namespace GreenwichCMS.DAO.Implementation
             try
             {
                 var currentCate = _greenwichContext.IdeaCategory.FirstOrDefault(c => c.Title == idea.IdeaCategoryName);
-                var currentUser = _greenwichContext.Users.FirstOrDefault(u => u.UserId == idea.User.UserId);
+                var currentUser = _greenwichContext.Users.FirstOrDefault(u => u.UserId == idea.Author);
                 if (currentUser == null)
                 {
                     throw new Exception("User is null");
@@ -70,9 +70,9 @@ namespace GreenwichCMS.DAO.Implementation
             }
         }
 
-        public IEnumerable<Idea> GetIdea(PageParams pageParams)
+        public IEnumerable<Idea> GetIdea()
         {
-            var listIdeas = _greenwichContext.Idea.Include(p => p.User).ThenInclude(p => p.Role).Include(p => p.IdeaCategory);
+            var listIdeas = _greenwichContext.Idea.Include(p => p.User).Include(p => p.IdeaCategory).Include(p=>p.Reactions);
             return listIdeas;
         }
 

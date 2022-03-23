@@ -103,16 +103,6 @@ namespace GreenwichCMS.DAO.Implementation
         public IEnumerable<Users> GetUsers(PageParams pageParams)
         {
             var listUsers = _greenwichContext.Users.Include("Role").ToList();
-
-            if (pageParams.SearchName != null)
-            {
-                var p = pageParams.SearchName;
-                listUsers = listUsers.Where(x => x.UserName.Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)
-                     || x.FirstName.Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)
-                     || x.LastName.Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)
-                     || (x.LastName + " " + x.FirstName).Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)
-                     ).ToList();
-            }
             return listUsers;
         }
 

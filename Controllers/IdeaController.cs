@@ -3,6 +3,8 @@ using GreenwichCMS.Models.DTOs;
 using GreenwichCMS.Services.Implementation;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
+using System.Text.Json;
 
 namespace GreenwichCMS.Controllers
 {
@@ -19,8 +21,24 @@ namespace GreenwichCMS.Controllers
         [HttpGet]
         public IActionResult GetIdeas([FromQuery] PageParams pageParams)
         {
-            var listIdeas = _ideaServices.GetIdea(pageParams);
-            return Ok(listIdeas);
+            var listIdeas = _ideaServices.GetIdea();
+            listIdeas = listIdeas.OrderBy(on => on.Title)
+                            .Skip((pageParams.PageNumber - 1) * pageParams.PageSize)
+                            .Take(pageParams.PageSize);
+
+            if (pageParams.SearchName != null)
+            {
+                var p = pageParams.SearchName;
+                listIdeas = listIdeas.Where(x => x.Title.Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)
+                     || x.Content.Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            }
+
+            var metaData = new
+            {
+                listIdeas,
+                count = listIdeas.Count(),
+            };
+            return Ok(metaData);
         }
 
         [HttpPost]

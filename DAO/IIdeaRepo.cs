@@ -9,7 +9,7 @@ namespace GreenwichCMS.DAO
 {
     public interface IIdeaRepo
     {
-        public IEnumerable<Idea> GetIdea(PageParams pageParams);
+        public IEnumerable<Idea> GetIdea();
         public string CreateIdea(IdeaDTOs idea);
         public string UpdateIdea(Idea idea);
         public string DeleteIdea(Guid ideaId);
