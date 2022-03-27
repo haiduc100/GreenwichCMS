@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GreenwichCMS.Models;
 using GreenwichCMS.Models.DTOs;
 using GreenwichCMS.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -17,19 +18,20 @@ namespace GreenwichCMS.Controllers
         {
             _roleServices = roleServices;
         }
-        [HttpPost]
-        public ActionResult CreateRole(RoleDTOs role)
+        [HttpGet]
+        public ActionResult<IEnumerable<UserDTOs>> GetRoles()
         {
+
             if (ModelState.IsValid)
             {
-                var newRole = _roleServices.CreateRole(role);
-                if (newRole)
-                {
-                    return Ok(newRole);
-                }
-                return BadRequest("Role already exists");
+                return Ok(
+
+                _roleServices.GetRoles()
+
+                );
             }
             return BadRequest();
+
         }
     }
 }

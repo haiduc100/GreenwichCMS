@@ -73,7 +73,7 @@ namespace GreenwichCMS.Controllers
                 var result = _userServices.CreateUser(user);
                 if (result)
                 {
-                    return Ok();
+                    return Ok(user);
                 }
                 return BadRequest();
 
@@ -89,7 +89,7 @@ namespace GreenwichCMS.Controllers
                 var updatedUser = _userServices.UpdateUser(user);
                 if (updatedUser)
                 {
-                    return Ok(updatedUser);
+                    return Ok(user);
                 }
             }
             return BadRequest("Fail to update user");

@@ -8,6 +8,7 @@ namespace GreenwichCMS.DAO
 {
     public interface IRoleRepo
     {
-        bool CreateRole(Roles role);
+        IEnumerable<Roles> GetRoles();
+
     }
 }
