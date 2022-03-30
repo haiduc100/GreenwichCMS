@@ -54,7 +54,7 @@ namespace GreenwichCMS
             //{
             //    configuration.RootPath = "ClientApp/build";
             //});
-
+            services.AddScoped<ICommentRepo, CommentRepo>();
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IRoleRepo, RoleRepo>();
