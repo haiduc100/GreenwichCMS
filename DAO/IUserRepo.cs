@@ -9,7 +9,6 @@ namespace GreenwichCMS.DAO
 {
     public interface IUserRepo
     {
-        //IEnumerable<Users> GetUsers();
         IEnumerable<Users> GetUsers(PageParams pageParams);
         Users GetUserById(Guid id);
         Users GetUserByNameAndPassword(string userName, string password);

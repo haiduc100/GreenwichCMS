@@ -18,13 +18,9 @@ namespace GreenwichCMS.DAO.Implementation
             _logger = logger;
         }
 
-        public bool CreateRole(Roles role)
+        public IEnumerable<Roles> GetRoles()
         {
-
-            _greenwichContext.Roles.Add(role);
-            _greenwichContext.SaveChanges();
-
-            return true;
+            return _greenwichContext.Roles.ToList();
         }
     }
 }

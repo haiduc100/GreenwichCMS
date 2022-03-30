@@ -15,7 +15,7 @@ namespace GreenwichCMS.Commons
         {
             // Add as many of these lines as you need to map your objects
             CreateMap<Users, UserDTOs>().ForMember(des => des.Role, act => act.MapFrom(src => src.Role.RoleName)).ReverseMap();
-            CreateMap<RoleDTOs, Roles>().ReverseMap();
+            CreateMap<Roles, RoleDTOs>().ReverseMap();
 
             CreateMap<Idea, IdeaDTOs>()
                  .ForMember(des => des.IdeaCategoryName, act => act.MapFrom(src => src.IdeaCategory.Title))

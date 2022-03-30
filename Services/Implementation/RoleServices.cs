@@ -13,9 +13,15 @@ namespace GreenwichCMS.Services.Implementation
     {
         private readonly IRoleRepo _roleRepo;
         private readonly IMapper _mapper;
-        public bool CreateRole(RoleDTOs role)
+        public RoleServices(IRoleRepo roleRepo, IMapper mapper)
         {
-            return _roleRepo.CreateRole(_mapper.Map<Roles>(role));
+            _roleRepo = roleRepo;
+            _mapper = mapper;
+        }
+        public IEnumerable<RoleDTOs> GetRoles()
+        {
+            var roles = _roleRepo.GetRoles();
+            return _mapper.Map<IEnumerable<Roles>, IEnumerable<RoleDTOs>>(roles);
         }
     }
 }

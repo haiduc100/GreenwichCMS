@@ -117,6 +117,7 @@ namespace GreenwichCMS.DAO.Implementation
             currentUser.LastName = user.LastName;
             currentUser.RoleId = role.RoleId;
             currentUser.Password = user.Password;
+            currentUser.UserName = user.UserName;
 
             _greenwichContext.SaveChanges();
 
