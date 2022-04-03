@@ -17,8 +17,6 @@ namespace GreenwichCMS.Models
         public string Title { get; set; }
         public string Slug { get; set; }
         public string Content { get; set; }
-        public DateTime FirstClosureDate { get; set; }
-        public DateTime FinalClosureDate { get; set; }
         public bool Privacy { get; set; }
         public IdeaCategory IdeaCategory { get; set; }
         public IEnumerable<Reaction> Reactions { get; set; }

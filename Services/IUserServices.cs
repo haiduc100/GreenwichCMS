@@ -16,6 +16,6 @@ namespace GreenwichCMS.Services
         bool CreateUser(UserDTOs user);
         bool UpdateUser(UserDTOs user);
         bool DeleteUser(Guid userId);
-        public void ChangePassword(Guid id, string newPassword, string oldPassword);
+        public string ChangePassword(Guid id, string newPassword, string oldPassword);
     }
 }

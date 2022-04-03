@@ -23,7 +23,7 @@ namespace GreenwichCMS.Models
         [ForeignKey("Roles")]
         public Guid RoleId { get; set; }
         public virtual Roles Role { get; set; }
-
+        public string Department { get; set; }
 
     }
 }

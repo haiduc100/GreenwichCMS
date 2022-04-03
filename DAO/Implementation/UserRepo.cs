@@ -83,9 +83,10 @@ namespace GreenwichCMS.DAO.Implementation
                 var user = _greenwichContext.Users.FirstOrDefault(x => x.UserId == id);
                 if (user != null)
                 {
-                    if (user.Password == oldPassword)
+                    var currentPassword = MD5Hash.Hash.Content(oldPassword);
+                    if (user.Password == currentPassword)
                     {
-                        user.Password = newPassword;
+                        user.Password = MD5Hash.Hash.Content(newPassword);
                         _greenwichContext.SaveChanges();
                     }
                     else throw new Exception("Old password is not correct!");

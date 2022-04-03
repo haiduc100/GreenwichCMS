@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GreenwichCMS.Context;
 using GreenwichCMS.Models;
 using GreenwichCMS.Models.DTOs;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace GreenwichCMS.DAO.Implementation
@@ -21,6 +22,17 @@ namespace GreenwichCMS.DAO.Implementation
         {
             try
             {
+                var idea = _greenwichContext.Idea.Include(p => p.IdeaCategory).FirstOrDefault(c => c.Id == comment.IdeaId);
+                if (idea.IdeaCategory.FinalClosureDate < DateTime.Now)
+                {
+                    throw new Exception("Cannot add comment, The Category is expired");
+                }
+
+                if (DateTime.Now > idea.IdeaCategory.FinalClosureDate)
+                {
+                    throw new Exception("Cannot add");
+                }
+
                 _greenwichContext.Comment.Add(comment);
                 _greenwichContext.SaveChanges();
                 return "ok";
@@ -31,14 +43,21 @@ namespace GreenwichCMS.DAO.Implementation
             }
         }
 
-        public string DeleteComment(Guid commentId)
+        public string DeleteComment(Guid commentId, Guid CreateBy)
         {
             try
             {
                 var currentComment = _greenwichContext.Comment.FirstOrDefault(c => c.CommentId == commentId);
-                _greenwichContext.Remove(currentComment);
-                _greenwichContext.SaveChanges();
-                return "ok";
+                if (currentComment.ReplyBy == CreateBy)
+                {
+                    _greenwichContext.Remove(currentComment);
+                    _greenwichContext.SaveChanges();
+                    return "ok";
+                }
+                else
+                {
+                    throw new Exception("Cannot delete Comment");
+                }
             }
             catch (Exception e)
             {
@@ -63,14 +82,21 @@ namespace GreenwichCMS.DAO.Implementation
             return listComments;
         }
 
-        public string UpdateComment(Comment comment)
+        public string UpdateComment(Comment comment, Guid CreateBy)
         {
             try
             {
                 var currentComment = _greenwichContext.Comment.FirstOrDefault(c => c.CommentId == comment.CommentId);
-                currentComment.Content = comment.Content;
-                _greenwichContext.SaveChanges();
-                return "ok";
+                if (currentComment.ReplyBy == CreateBy)
+                {
+                    currentComment.Content = comment.Content;
+                    _greenwichContext.SaveChanges();
+                    return "ok";
+                }
+                else
+                {
+                    throw new Exception("Cannot update comment");
+                }
             }
             catch (Exception e)
             {

@@ -29,7 +29,7 @@ namespace GreenwichCMS.Controllers
 
         [HttpPost]
         [Route("Login")]
-        
+
         public IActionResult Login(LoginModel user)
         {
             var currentUser = _userService.GetUserByNameAndPassword(user.UserName, user.Password);
@@ -57,10 +57,11 @@ namespace GreenwichCMS.Controllers
 
         [HttpPost]
         [Route("ChangePassword")]
+        [Authorize]
         public IActionResult ChangePass(ChangePassModel passwordParams)
         {
 
-            var res = _userService.ChangePassword(passwordParams.Id, passwordParams.newPassword, passwordParams.oldPassword);
+            var res = _userService.ChangePassword(passwordParams.Id, passwordParams.NewPassword, passwordParams.OldPassword);
             if (res == "ok")
             {
                 return Ok(res);

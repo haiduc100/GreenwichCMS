@@ -30,15 +30,15 @@ namespace GreenwichCMS.Services.Implementation
             return _commentRepo.CreateComment(newComment);
         }
 
-        public string DeleteComment(Guid commentId)
+        public string DeleteComment(Guid commentId, Guid CreateBy)
         {
-            return _commentRepo.DeleteComment(commentId);
+            return _commentRepo.DeleteComment(commentId, CreateBy);
         }
 
-        public string UpdateComment(CommentDTOs comment)
+        public string UpdateComment(CommentDTOs comment, Guid CreateBy)
         {
             var newComment = _mapper.Map<CommentDTOs, Comment>(comment);
-            return _commentRepo.UpdateComment(newComment);
+            return _commentRepo.UpdateComment(newComment, CreateBy);
         }
 
         public IEnumerable<CommentDTOs> GetCommentsByIdeaId(Guid ideaId)

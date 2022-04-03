@@ -12,8 +12,8 @@ namespace GreenwichCMS.DAO
         IEnumerable<Comment> GetComment();
 
         string CreateComment(Comment comment);
-        string UpdateComment(Comment comment);
-        string DeleteComment(Guid commentId);
+        string UpdateComment(Comment comment, Guid CreateBy);
+        string DeleteComment(Guid commentId, Guid CreateBy);
         IEnumerable<Comment> GetCommentsByIdeaId(Guid ideaId);
         IEnumerable<Comment> GetCommentByUserId(Guid userId);
     }

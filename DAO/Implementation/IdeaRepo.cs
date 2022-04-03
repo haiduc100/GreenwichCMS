@@ -20,6 +20,10 @@ namespace GreenwichCMS.DAO.Implementation
             try
             {
                 var currentCate = _greenwichContext.IdeaCategory.FirstOrDefault(c => c.Title == idea.IdeaCategoryName);
+                if (DateTime.Now > currentCate.FirstClosureDate)
+                {
+                    throw new Exception("Expired to create ideas");
+                }
                 var currentUser = _greenwichContext.Users.FirstOrDefault(u => u.UserId == idea.Author);
                 if (currentUser == null)
                 {
@@ -34,8 +38,6 @@ namespace GreenwichCMS.DAO.Implementation
                     User = currentUser,
                     Author = idea.Author,
                     Content = idea.Content,
-                    FinalClosureDate = idea.FinalClosureDate,
-                    FirstClosureDate = idea.FirstClosureDate,
                     IdeaCategory = currentCate,
                     Privacy = idea.Privacy,
                     Slug = idea.Slug,
@@ -102,9 +104,7 @@ namespace GreenwichCMS.DAO.Implementation
                 }
                 currentIdea.Title = idea.Title;
                 currentIdea.Slug = idea.Slug;
-                currentIdea.FinalClosureDate = idea.FinalClosureDate;
                 currentIdea.IdeaCategory = idea.IdeaCategory;
-                currentIdea.FirstClosureDate = idea.FirstClosureDate;
                 currentIdea.Author = idea.Author;
                 currentIdea.Content = idea.Content;
                 currentIdea.Privacy = idea.Privacy;

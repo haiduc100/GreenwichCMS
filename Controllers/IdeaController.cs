@@ -2,6 +2,7 @@
 using GreenwichCMS.Models.DTOs;
 using GreenwichCMS.Models.ModelPassFromClient;
 using GreenwichCMS.Services.Implementation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetIdeas([FromQuery] PageParams pageParams)
         {
             var listIdeas = _ideaServices.GetIdea();
@@ -53,6 +55,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateIdeaAsync(IList<IFormFile> files, [FromForm] IdeaFromClient idea)
         {
 
@@ -82,8 +85,6 @@ namespace GreenwichCMS.Controllers
                 Author = idea.Author,
                 Content = idea.Content,
                 DisLikeCount = 0,
-                FinalClosureDate = idea.FinalClosureDate,
-                FirstClosureDate = idea.FirstClosureDate,
                 IdeaCategoryName = idea.IdeaCategoryName,
                 LikeCount = 0,
                 Privacy = idea.Privacy,
@@ -102,6 +103,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Quality Assurance Manager")]
         public IActionResult DeleteIdea(Guid id)
         {
             var signal = _ideaServices.DeleteIdea(id);
@@ -116,6 +118,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Quality Assurance Manager")]
         public IActionResult UpdateIdea(IdeaDTOs idea)
         {
             var signal = _ideaServices.UpdateIdea(idea);

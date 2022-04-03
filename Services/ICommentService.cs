@@ -10,8 +10,8 @@ namespace GreenwichCMS.Services
     {
         IEnumerable<CommentDTOs> GetComments();
         string CreateComment(CommentDTOs comment);
-        string UpdateComment(CommentDTOs comment);
-        string DeleteComment(Guid commentId);
+        string UpdateComment(CommentDTOs comment, Guid CreateBy);
+        string DeleteComment(Guid commentId, Guid CreateBy);
         IEnumerable<CommentDTOs> GetCommentsByIdeaId(Guid ideaId);
         IEnumerable<CommentDTOs> GetCommentByUserId(Guid userId);
     }

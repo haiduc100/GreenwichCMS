@@ -1,5 +1,6 @@
 ﻿using GreenwichCMS.Models.DTOs;
 using GreenwichCMS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpGet("userId")]
+        [Authorize]
         public IActionResult GetCommentsByUserId(Guid userId)
         {
             try
@@ -47,6 +49,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpGet("ideaId")]
+        [Authorize]
         public IActionResult GetCommentByIdeaId(Guid ideaId)
         {
             try
@@ -61,11 +64,12 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpDelete]
-        public IActionResult DeleteComment(Guid id)
+        [Authorize]
+        public IActionResult DeleteComment(Guid id, Guid CreateBy)
         {
             try
             {
-                var signal = _commentService.DeleteComment(id);
+                var signal = _commentService.DeleteComment(id, CreateBy);
                 if (signal == "ok")
                 {
                     return Ok();
@@ -82,6 +86,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult CreateComment(CommentDTOs comment)
         {
             try
@@ -103,11 +108,12 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateComment(CommentDTOs comment)
+        [Authorize]
+        public IActionResult UpdateComment(CommentDTOs comment, Guid CreateBy)
         {
             try
             {
-                var signal = _commentService.UpdateComment(comment);
+                var signal = _commentService.UpdateComment(comment, CreateBy);
                 if (signal == "ok")
                 {
                     return Ok();

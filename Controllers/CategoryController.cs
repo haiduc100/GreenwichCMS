@@ -1,6 +1,7 @@
 ﻿using GreenwichCMS.Models.DTOs;
 using GreenwichCMS.Models.ModelPassFromClient;
 using GreenwichCMS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -17,12 +18,14 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetCategory()
         {
             return Ok(_categoryService.GetCategory());
         }
 
         [HttpPost]
+        [Authorize(Roles = "Quality Assurance Manager")]
         public IActionResult CreateCategory(PostCategoryFromClient cate)
         {
             var cateDto = new IdeaCategoryDTOs()
@@ -41,6 +44,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Quality Assurance Manager")]
         public IActionResult DeleteCategory(Guid id)
         {
             var signal = _categoryService.DeleteCategory(id);

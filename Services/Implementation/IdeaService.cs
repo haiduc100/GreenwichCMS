@@ -31,7 +31,7 @@ namespace GreenwichCMS.Services.Implementation
         public IEnumerable<IdeaDTOs> GetIdea()
         {
             var listIdeas = _IdeaRepo.GetIdea();
-            return _mapper.Map<IEnumerable<object>, IEnumerable<IdeaDTOs>>(listIdeas);
+            return _mapper.Map<IEnumerable<Idea>, IEnumerable<IdeaDTOs>>(listIdeas);
         }
 
         public string UpdateIdea(IdeaDTOs idea)

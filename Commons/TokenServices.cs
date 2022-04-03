@@ -28,7 +28,7 @@ namespace GreenwichCMS.Commons
                 new Claim(ClaimTypes.Name,user.UserName),
                 new Claim("DateOfBirth",user.DateOfBirth.ToString()),
                 new Claim("Id",user.UserId.ToString()),
-                new Claim("Role",user.Role.ToString()),
+                new Claim(ClaimTypes.Role,user.Role.ToString()),
                 new Claim("FirstName",user.FirstName),
                 new Claim("LastName",user.LastName),
             };

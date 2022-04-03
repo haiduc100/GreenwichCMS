@@ -84,9 +84,5 @@ namespace GreenwichCMS.Services.Implementation
             }
         }
 
-        void IUserServices.ChangePassword(Guid id, string newPassword, string oldPassword)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

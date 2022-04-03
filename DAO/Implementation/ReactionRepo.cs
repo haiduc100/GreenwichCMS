@@ -46,7 +46,7 @@ namespace GreenwichCMS.DAO.Implementation
 
         public IEnumerable<Reaction> GetReactionsByIdeaId(Guid IdeaId)
         {
-            var listReactions = _greenwichContext.Reaction.Where(r => r.IdeaId == IdeaId).Include(p=>p.User).Include(p=>p.Idea);
+            var listReactions = _greenwichContext.Reaction.Where(r => r.IdeaId == IdeaId).Include(p => p.User).Include(p => p.Idea);
             return listReactions;
         }
 
