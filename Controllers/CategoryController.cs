@@ -1,4 +1,5 @@
 ﻿using GreenwichCMS.Models.DTOs;
+using GreenwichCMS.Models.ModelPassFromClient;
 using GreenwichCMS.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,9 +23,13 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCategory(IdeaCategoryDTOs cate)
+        public IActionResult CreateCategory(PostCategoryFromClient cate)
         {
-            var signal = _categoryService.CreateCategory(cate);
+            var cateDto = new IdeaCategoryDTOs()
+            {
+                Title = cate.Title
+            };
+            var signal = _categoryService.CreateCategory(cateDto);
             if (signal == "ok")
             {
                 return Ok("Create category successfully");

@@ -1,5 +1,6 @@
 ﻿using GreenwichCMS.Models;
 using GreenwichCMS.Models.DTOs;
+using GreenwichCMS.Models.ModelPassFromClient;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -27,9 +28,15 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostReactionsByIdea(ReactionDTOs reaction)
+        public IActionResult PostReactionsByIdea(PostReactionFromClient reaction)
         {
-            var signal = _reactionService.AddReaction(reaction);
+            var reactionDtos = new ReactionDTOs()
+            {
+                Context = reaction.Context,
+                UserId = reaction.UserId,
+                IdeaId = reaction.IdeaId
+            };
+            var signal = _reactionService.AddReaction(reactionDtos);
             if (signal == "ok")
             {
                 return Ok("Add reaction successfully");

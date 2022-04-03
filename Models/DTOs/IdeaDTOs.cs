@@ -18,5 +18,6 @@ namespace GreenwichCMS.Models.DTOs
         public string IdeaCategoryName { get; set; }
         public int LikeCount { get; set; }
         public int DisLikeCount { get; set; }
+        public IEnumerable<FileIdea> Files { get; set; }
     }
 }

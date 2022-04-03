@@ -1,0 +1,18 @@
+.admin-control__logout {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.admin-control__name {
+  font-weight: bold;
+}
+
+.admin-create_gender {
+  display: flex;
+  justify-content: space-between;
+}
+
+.admin-create_gender span {
+  color: #776c75;
+}

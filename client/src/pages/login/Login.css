@@ -1,0 +1,9 @@
+.formLogin {
+  position: relative;
+}
+
+.viewPassword {
+  position: absolute;
+  top: 37%;
+  right: 2%;
+}

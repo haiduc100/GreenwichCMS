@@ -22,5 +22,6 @@ namespace GreenwichCMS.Models
         public bool Privacy { get; set; }
         public IdeaCategory IdeaCategory { get; set; }
         public IEnumerable<Reaction> Reactions { get; set; }
+        public IEnumerable<FileIdea> Files { get; set; }
     }
 }

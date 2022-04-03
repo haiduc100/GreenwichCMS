@@ -1,10 +1,17 @@
 ﻿using GreenwichCMS.Models;
 using GreenwichCMS.Models.DTOs;
+using GreenwichCMS.Models.ModelPassFromClient;
 using GreenwichCMS.Services.Implementation;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace GreenwichCMS.Controllers
 {
@@ -13,9 +20,11 @@ namespace GreenwichCMS.Controllers
     public class IdeaController : ControllerBase
     {
         private readonly IideaServices _ideaServices;
-        public IdeaController(IideaServices ideaServices)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public IdeaController(IideaServices ideaServices, IWebHostEnvironment webHostEnvironment)
         {
             _ideaServices = ideaServices;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -33,6 +42,8 @@ namespace GreenwichCMS.Controllers
                      || x.Content.Contains(pageParams.SearchName, StringComparison.CurrentCultureIgnoreCase)).ToList();
             }
 
+
+
             var metaData = new
             {
                 listIdeas,
@@ -42,9 +53,44 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateIdea(IdeaDTOs idea)
+        public async Task<IActionResult> CreateIdeaAsync(IList<IFormFile> files, [FromForm] IdeaFromClient idea)
         {
-            var signal = _ideaServices.CreateIdea(idea);
+
+            var filepath = Path.Combine(_webHostEnvironment.ContentRootPath, "FileIdea");
+            if (!Directory.Exists(filepath))
+            {
+                Directory.CreateDirectory(filepath);
+            }
+            var targetToSave = Path.Combine(filepath, idea.Title);
+            Directory.CreateDirectory(targetToSave);
+            var ListFilePaths = new List<string>();
+            var folderName = Path.Combine("FileIdea", idea.Title);
+            foreach (var formFile in files)
+            {
+                if (formFile.Length > 0)
+                {
+                    var dbPath = Path.Combine(folderName, formFile.FileName);
+                    var filePathToSave = Path.Combine(targetToSave, formFile.FileName);
+                    ListFilePaths.Add(dbPath);
+                    using var stream = new FileStream(filePathToSave, FileMode.Create);
+                    await formFile.CopyToAsync(stream);
+                }
+            }
+
+            var newIdea = new IdeaDTOs()
+            {
+                Author = idea.Author,
+                Content = idea.Content,
+                DisLikeCount = 0,
+                FinalClosureDate = idea.FinalClosureDate,
+                FirstClosureDate = idea.FirstClosureDate,
+                IdeaCategoryName = idea.IdeaCategoryName,
+                LikeCount = 0,
+                Privacy = idea.Privacy,
+                Slug = idea.Slug,
+                Title = idea.Title
+            };
+            var signal = _ideaServices.CreateIdea(newIdea, ListFilePaths);
             if (signal == "ok")
             {
                 return Ok("Create idea successfully");

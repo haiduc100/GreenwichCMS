@@ -43,6 +43,25 @@ namespace GreenwichCMS.Migrations
                     b.ToTable("Comment");
                 });
 
+            modelBuilder.Entity("GreenwichCMS.Models.FileIdea", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("IdeaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdeaId");
+
+                    b.ToTable("FileIdea");
+                });
+
             modelBuilder.Entity("GreenwichCMS.Models.Idea", b =>
                 {
                     b.Property<Guid>("Id")
@@ -193,6 +212,15 @@ namespace GreenwichCMS.Migrations
                     b.Navigation("Users");
                 });
 
+            modelBuilder.Entity("GreenwichCMS.Models.FileIdea", b =>
+                {
+                    b.HasOne("GreenwichCMS.Models.Idea", null)
+                        .WithMany("Files")
+                        .HasForeignKey("IdeaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("GreenwichCMS.Models.Idea", b =>
                 {
                     b.HasOne("GreenwichCMS.Models.IdeaCategory", "IdeaCategory")
@@ -241,6 +269,8 @@ namespace GreenwichCMS.Migrations
 
             modelBuilder.Entity("GreenwichCMS.Models.Idea", b =>
                 {
+                    b.Navigation("Files");
+
                     b.Navigation("Reactions");
                 });
 

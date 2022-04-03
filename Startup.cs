@@ -25,6 +25,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace GreenwichCMS
 {
@@ -113,6 +116,13 @@ namespace GreenwichCMS
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"FileIdea")),
+                RequestPath = new PathString("/FileIdea")
+            });
 
             app.UseRouting();
             app.UseCors(builder =>

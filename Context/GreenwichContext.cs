@@ -33,18 +33,6 @@ namespace GreenwichCMS.Context
             {
                 entity.HasMany(p => p.Idea).WithOne(p => p.IdeaCategory).OnDelete(DeleteBehavior.Cascade);
             });
-            //modelBuilder.Entity<Reaction>(entity =>
-            //{
-
-            //});
-            //modelBuilder.Entity<Comment>(entity =>
-            //{
-
-            //});
-            //modelBuilder.Entity<IdeaCategory>(entity =>
-            //{
-
-            //});
 
         }
         public DbSet<Users> Users { get; set; }
@@ -53,5 +41,6 @@ namespace GreenwichCMS.Context
         public DbSet<Reaction> Reaction { get; set; }
         public DbSet<Comment> Comment { get; set; }
         public DbSet<IdeaCategory> IdeaCategory { get; set; }
+        public DbSet<FileIdea> FileIdea { get; set; }
     }
 }

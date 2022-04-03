@@ -16,9 +16,9 @@ namespace GreenwichCMS.Services.Implementation
             _IdeaRepo = IdeaRepo;
             _mapper = mapper;
         }
-        public string CreateIdea(IdeaDTOs idea)
+        public string CreateIdea(IdeaDTOs idea, List<string> listFilePaths)
         {
-            var signal = _IdeaRepo.CreateIdea(idea);
+            var signal = _IdeaRepo.CreateIdea(idea, listFilePaths);
             return signal;
         }
 

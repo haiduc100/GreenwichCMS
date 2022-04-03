@@ -29,6 +29,7 @@ namespace GreenwichCMS.Controllers
 
         [HttpPost]
         [Route("Login")]
+        
         public IActionResult Login(LoginModel user)
         {
             var currentUser = _userService.GetUserByNameAndPassword(user.UserName, user.Password);

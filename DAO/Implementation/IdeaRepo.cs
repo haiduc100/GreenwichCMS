@@ -15,7 +15,7 @@ namespace GreenwichCMS.DAO.Implementation
         {
             _greenwichContext = greenwichContext;
         }
-        public string CreateIdea(IdeaDTOs idea)
+        public string CreateIdea(IdeaDTOs idea, List<string> listFilePaths)
         {
             try
             {
@@ -40,8 +40,23 @@ namespace GreenwichCMS.DAO.Implementation
                     Privacy = idea.Privacy,
                     Slug = idea.Slug,
                     Title = idea.Title,
+                    Files = idea.Files
                 };
                 _greenwichContext.Idea.Add(newIdea);
+                _greenwichContext.SaveChanges();
+
+                var id = newIdea.Id;
+                var listFileIdea = new List<FileIdea>();
+                foreach (var filePath in listFilePaths)
+                {
+                    listFileIdea.Add(
+                    new FileIdea()
+                    {
+                        FilePath = filePath,
+                        IdeaId = id
+                    });
+                }
+                _greenwichContext.FileIdea.AddRange(listFileIdea);
                 _greenwichContext.SaveChanges();
                 return "ok";
             }
@@ -72,7 +87,7 @@ namespace GreenwichCMS.DAO.Implementation
 
         public IEnumerable<Idea> GetIdea()
         {
-            var listIdeas = _greenwichContext.Idea.Include(p => p.User).ThenInclude(p=>p.Role).Include(p => p.IdeaCategory).Include(p=>p.Reactions);
+            var listIdeas = _greenwichContext.Idea.Include(p => p.User).ThenInclude(p => p.Role).Include(p => p.IdeaCategory).Include(p => p.Reactions).Include(p => p.Files);
             return listIdeas;
         }
 
@@ -94,6 +109,7 @@ namespace GreenwichCMS.DAO.Implementation
                 currentIdea.Content = idea.Content;
                 currentIdea.Privacy = idea.Privacy;
                 currentIdea.User = idea.User;
+                currentIdea.Files = idea.Files;
                 _greenwichContext.SaveChanges();
                 return "ok";
             }

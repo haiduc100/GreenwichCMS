@@ -1,0 +1,140 @@
+.topic {
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.side-bar__info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.side-bar__info-name {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 800px;
+  height: 40px;
+  border-radius: 3px;
+  border: 1px solid rgb(141, 141, 141);
+  outline: none;
+  padding: 0 20px;
+  font-size: 16px;
+}
+
+.search-input:focus {
+  border: 1px solid #0c0f66;
+}
+
+.account-setting {
+  width: 250px;
+  background-color: #fff;
+  position: fixed;
+  top: 65px;
+  right: 20px;
+  z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.good-idea {
+  /* width: 100%; */
+  height: 290px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.good-idea:hover .good-idea__see-more {
+  transform: translateY(-15px);
+  opacity: 1;
+}
+
+.good-idea:hover .good-idea__avatar {
+  width: 80px;
+  height: 80px;
+}
+
+.good-idea__avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 10px auto;
+  transition: 0.4s;
+  transition-delay: 0.1s;
+}
+
+.good-idea__avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 10px 0;
+}
+
+.good-idea__name {
+  font-size: 16px;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.good-idea__title {
+  font-size: 16px;
+  color: rgb(143, 142, 142);
+  padding-left: 10px;
+}
+
+.good-idea__detail {
+  font-size: 14px;
+  padding: 0px 10px;
+  text-align: justify;
+}
+
+.good-idea__document {
+  margin: 10px 0 0;
+  padding-left: 10px;
+}
+
+.good-idea__see-more {
+  width: 100%;
+  line-height: 27px;
+  background-color: #1976d2;
+  color: #fff;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 15px;
+  opacity: 0;
+  transition: 0.4s;
+  transition-delay: 0.1s;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  cursor: pointer;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  padding: 5px 15px 5px 0;
+}
+
+.post {
+  padding: 10px 20px 0;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.post:hover {
+  border: 1px solid rgb(134, 132, 132);
+}
+
+.home-idea__comment {
+  display: flex;
+  justify-content: center;
+}
