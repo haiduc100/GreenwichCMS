@@ -11,8 +11,10 @@ namespace GreenwichCMS.DAO
     {
         IEnumerable<Comment> GetComment();
 
-        bool CreateComment(CommentDTOs comment);
-        bool UpdateComment(CommentDTOs comment);
-        bool DeleteComment(Guid commentId);
+        string CreateComment(Comment comment);
+        string UpdateComment(Comment comment);
+        string DeleteComment(Guid commentId);
+        IEnumerable<Comment> GetCommentsByIdeaId(Guid ideaId);
+        IEnumerable<Comment> GetCommentByUserId(Guid userId);
     }
 }

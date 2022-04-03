@@ -30,6 +30,8 @@ namespace GreenwichCMS.Commons
                 .ForMember(des => des.UserName, act => act.MapFrom(src => src.User.UserName))
                 .ForMember(des => des.IdeaTitle, act => act.MapFrom(src => src.Idea.Title)).ReverseMap();
 
+            CreateMap<Comment, CommentDTOs>().ReverseMap();
+
         }
     }
 

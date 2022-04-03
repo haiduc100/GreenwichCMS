@@ -12,22 +12,38 @@ namespace GreenwichCMS.DAO.Implementation
     public class CommentRepo : ICommentRepo
     {
         private readonly GreenwichContext _greenwichContext;
-        private readonly ILogger _logger;
 
-        public CommentRepo(GreenwichContext greenwichContext, ILogger logger)
+        public CommentRepo(GreenwichContext greenwichContext)
         {
             _greenwichContext = greenwichContext;
-            _logger = logger;
         }
-        public bool CreateComment(CommentDTOs comment)
+        public string CreateComment(Comment comment)
         {
-            throw new NotImplementedException();
-
+            try
+            {
+                _greenwichContext.Comment.Add(comment);
+                _greenwichContext.SaveChanges();
+                return "ok";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
-        public bool DeleteComment(Guid commentId)
+        public string DeleteComment(Guid commentId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var currentComment = _greenwichContext.Comment.FirstOrDefault(c => c.CommentId == commentId);
+                _greenwichContext.Remove(currentComment);
+                _greenwichContext.SaveChanges();
+                return "ok";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         public IEnumerable<Comment> GetComment()
@@ -35,9 +51,31 @@ namespace GreenwichCMS.DAO.Implementation
             return _greenwichContext.Comment.ToList();
         }
 
-        public bool UpdateComment(CommentDTOs comment)
+        public IEnumerable<Comment> GetCommentByUserId(Guid userId)
         {
-            throw new NotImplementedException();
+            var listComments = _greenwichContext.Comment.Where(c => c.ReplyBy == userId).ToList();
+            return listComments;
+        }
+
+        public IEnumerable<Comment> GetCommentsByIdeaId(Guid ideaId)
+        {
+            var listComments = _greenwichContext.Comment.Where(c => c.IdeaId == ideaId).ToList();
+            return listComments;
+        }
+
+        public string UpdateComment(Comment comment)
+        {
+            try
+            {
+                var currentComment = _greenwichContext.Comment.FirstOrDefault(c => c.CommentId == comment.CommentId);
+                currentComment.Content = comment.Content;
+                _greenwichContext.SaveChanges();
+                return "ok";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
     }
 }

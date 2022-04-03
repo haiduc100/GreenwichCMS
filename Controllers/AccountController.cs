@@ -55,22 +55,22 @@ namespace GreenwichCMS.Controllers
             return Unauthorized();
         }
 
-        // [HttpPost]
-        // [Route("ChangePassword")]
-        // public IActionResult ChangePass(ChangePassModel passwordParams)
-        // {
+        [HttpPost]
+        [Route("ChangePassword")]
+        public IActionResult ChangePass(ChangePassModel passwordParams)
+        {
 
-        //     var res = _userService.ChangePassword(passwordParams.Id, passwordParams.newPassword, passwordParams.oldPassword);
-        //     if (res == "ok")
-        //     {
-        //         return Ok(res);
-        //     }
-        //     else
-        //     {
-        //         return BadRequest(res);
-        //     }
+            var res = _userService.ChangePassword(passwordParams.Id, passwordParams.newPassword, passwordParams.oldPassword);
+            if (res == "ok")
+            {
+                return Ok(res);
+            }
+            else
+            {
+                return BadRequest(res);
+            }
 
-        // }
+        }
     }
 
     public class LoginModel

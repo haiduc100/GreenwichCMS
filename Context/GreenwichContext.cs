@@ -32,6 +32,7 @@ namespace GreenwichCMS.Context
             modelBuilder.Entity<IdeaCategory>(entity =>
             {
                 entity.HasMany(p => p.Idea).WithOne(p => p.IdeaCategory).OnDelete(DeleteBehavior.Cascade);
+                entity.HasIndex(p => p.Title).IsUnique();
             });
 
         }
