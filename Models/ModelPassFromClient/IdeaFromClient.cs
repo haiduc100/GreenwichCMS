@@ -12,8 +12,6 @@ namespace GreenwichCMS.Models.ModelPassFromClient
         public string Title { get; set; }
         public string Slug { get; set; }
         public string Content { get; set; }
-        public DateTime FirstClosureDate { get; set; }
-        public DateTime FinalClosureDate { get; set; }
         public bool Privacy { get; set; }
         public string IdeaCategoryName { get; set; }
     }
