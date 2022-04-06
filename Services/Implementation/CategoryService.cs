@@ -32,5 +32,12 @@ namespace GreenwichCMS.Services.Implementation
         {
             return _mapper.Map<IEnumerable<IdeaCategoryDTOs>>(_categoryRepo.GetCategory());
         }
+
+        public string UpdateCategory(IdeaCategoryDTOs category)
+        {
+            var categoryMapped = _mapper.Map<IdeaCategoryDTOs, IdeaCategory>(category);
+            var signal = _categoryRepo.UpdateCategory(categoryMapped);
+            return signal;
+        }
     }
 }

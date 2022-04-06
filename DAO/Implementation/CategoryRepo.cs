@@ -46,5 +46,26 @@ namespace GreenwichCMS.DAO.Implementation
         {
             return _greenwichContext.IdeaCategory;
         }
+
+        public string UpdateCategory(IdeaCategory category)
+        {
+            try
+            {
+                var currentCategory = _greenwichContext.IdeaCategory.FirstOrDefault(i => i.IdeaCategoryId == category.IdeaCategoryId);
+                if (currentCategory == null)
+                {
+                    throw new Exception("Category is null");
+                }
+                currentCategory.Title = category.Title;
+                currentCategory.FinalClosureDate = category.FinalClosureDate;
+                currentCategory.FinalClosureDate = category.FinalClosureDate;
+                _greenwichContext.SaveChanges();
+                return "ok";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace GreenwichCMS.Controllers
             _reactionService = reactionService;
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet("UserId")]
         public IActionResult GetReactionsByUserId(Guid id)
         {
@@ -25,14 +25,14 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpGet("IdeaId")]
-        [Authorize]
+        // [Authorize]
         public IActionResult GetReactionsByIdeaId(Guid id)
         {
             return Ok(_reactionService.GetReactionsByIdeaId(id));
         }
 
         [HttpPost]
-        [Authorize]
+        // [Authorize]
         public IActionResult PostReactionsByIdea(PostReactionFromClient reaction)
         {
             var reactionDtos = new ReactionDTOs()
@@ -50,7 +50,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
+        // [Authorize]
         public IActionResult DeleteReaction(ReactionDTOs reaction)
         {
             var signal = _reactionService.DeleteReaction(reaction);

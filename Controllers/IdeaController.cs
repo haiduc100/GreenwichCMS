@@ -55,7 +55,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> CreateIdeaAsync(IList<IFormFile> files, [FromForm] IdeaFromClient idea)
         {
 
@@ -103,7 +103,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Quality Assurance Manager")]
+        // [Authorize(Roles = "Quality Assurance Manager")]
         public IActionResult DeleteIdea(Guid id)
         {
             var signal = _ideaServices.DeleteIdea(id);
@@ -118,7 +118,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Quality Assurance Manager")]
+        // [Authorize(Roles = "Quality Assurance Manager")]
         public IActionResult UpdateIdea(IdeaDTOs idea)
         {
             var signal = _ideaServices.UpdateIdea(idea);

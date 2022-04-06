@@ -1,0 +1,28 @@
+callStack             biên dịch code cho máy hiểu và thực thi code
+                      chạy 1 lệnh 1 thời điểm
+
+webAPI                xử lý các chức năng tốn thời gian
+
+callBack queue        hàng chờ lưu trữ kết quả trả về của webAPI
+
+event loop            kiểm tra khi nào callStack rỗng thì đưa code từ hàng chờ lên
+
+=> kết quả của hàm bất đồng bộ phải đợi chạy xong hết file mới trả ra
+
+=============================================================
+
+promise               lời hứa sẽ trả kết quả về bất kể thành công hay thất bại
+                      promise chạy bất đồng bộ
+
+new Promise(function (res, rej){        res: trả kết quả khi thành công
+  //....code                            rej: trả kết quẩ khi thất bại
+})
+
+
+.then(function(data){                   .then để bắt kết kết quả nếu promise thành công
+  //...                                 data là kết quả trả về khi thành công
+})                                      then return ra 1 promise mới
+
+.catch(function(err){                   .catch để bắt kết kết quả nếu promise thất bại
+  //...                                 err là lỗi trả về khi thất bại
+})                                      then return ra 1 promise mới

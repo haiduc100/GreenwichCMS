@@ -8,6 +8,7 @@ namespace GreenwichCMS.DAO
     {
         public IEnumerable<IdeaCategory> GetCategory();
         public string CreateCategory(IdeaCategory category);
+        public string UpdateCategory(IdeaCategory category);
         public string DeleteCategory(Guid id);
     }
 }

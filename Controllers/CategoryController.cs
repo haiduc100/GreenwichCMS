@@ -25,7 +25,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Quality Assurance Manager")]
+        // [Authorize(Roles = "Quality Assurance Manager")]
         public IActionResult CreateCategory(PostCategoryFromClient cate)
         {
             var cateDto = new IdeaCategoryDTOs()
@@ -42,9 +42,22 @@ namespace GreenwichCMS.Controllers
                 return BadRequest(signal);
             }
         }
+        [HttpPut]
+        public IActionResult UpdateCategory(IdeaCategoryDTOs Category)
+        {
+            var signal = _categoryService.UpdateCategory(Category);
+            if (signal == "ok")
+            {
+                return Ok("Update Category successfully");
+            }
+            else
+            {
+                return BadRequest(signal);
+            }
+        }
 
         [HttpDelete]
-        [Authorize(Roles = "Quality Assurance Manager")]
+        // [Authorize(Roles = "Quality Assurance Manager")]
         public IActionResult DeleteCategory(Guid id)
         {
             var signal = _categoryService.DeleteCategory(id);
