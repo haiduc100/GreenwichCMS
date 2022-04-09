@@ -34,6 +34,13 @@ namespace GreenwichCMS.Services.Implementation
             return _mapper.Map<IEnumerable<object>, IEnumerable<IdeaDTOs>>(listIdeas);
         }
 
+        public IEnumerable<IdeaDTOs> GetIdeasByCateName(string cateName)
+        {
+            var listIdeas = _IdeaRepo.GetIdeasByCategoryName(cateName);
+            return _mapper.Map<IEnumerable<object>, IEnumerable<IdeaDTOs>>(listIdeas);
+
+        }
+
         public string UpdateIdea(IdeaDTOs idea)
         {
             var ideaMapped = _mapper.Map<IdeaDTOs, Idea>(idea);

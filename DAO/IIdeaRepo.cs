@@ -13,6 +13,7 @@ namespace GreenwichCMS.DAO
         public string CreateIdea(IdeaDTOs idea);
         public string UpdateIdea(Idea idea);
         public string DeleteIdea(Guid ideaId);
+        public IEnumerable<Idea> GetIdeasByCategoryName(string categoryName);
 
     }
 }

@@ -41,6 +41,19 @@ namespace GreenwichCMS.Controllers
             return Ok(metaData);
         }
 
+        [HttpGet("{categoryName}")]
+        public IActionResult GetIdeasByCategoryName(string categoryName)
+        {
+            try
+            {
+                return Ok(_ideaServices.GetIdeasByCateName(categoryName));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message); 
+            }
+        }
+
         [HttpPost]
         public IActionResult CreateIdea(IdeaDTOs idea)
         {
