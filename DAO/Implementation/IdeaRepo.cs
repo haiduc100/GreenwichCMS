@@ -102,6 +102,17 @@ namespace GreenwichCMS.DAO.Implementation
             return listIdeas;
         }
 
+        public IEnumerable<Idea> GetIdeasByCategoryName(string categoryName)
+        {
+            var listIdeas = _greenwichContext.Idea
+                .Include(p => p.User)
+                .ThenInclude(p => p.Role)
+                .Include(p => p.IdeaCategory)
+                .Include(p => p.Reactions)
+                .Where(i=>i.IdeaCategory.Title==categoryName);
+            return listIdeas;
+        }
+
         public string UpdateIdea(Idea idea)
         {
             try
