@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GreenwichCMS.Context;
 using GreenwichCMS.Models;
 using GreenwichCMS.Models.DTOs;
+using GreenwichCMS.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -13,16 +14,18 @@ namespace GreenwichCMS.DAO.Implementation
     public class CommentRepo : ICommentRepo
     {
         private readonly GreenwichContext _greenwichContext;
+        private readonly ISendEmail _sendEmail;
 
-        public CommentRepo(GreenwichContext greenwichContext)
+        public CommentRepo(GreenwichContext greenwichContext, ISendEmail sendEmail)
         {
             _greenwichContext = greenwichContext;
+            _sendEmail = sendEmail;
         }
         public string CreateComment(Comment comment)
         {
             try
             {
-                var idea = _greenwichContext.Idea.Include(p => p.IdeaCategory).FirstOrDefault(c => c.Id == comment.IdeaId);
+                var idea = _greenwichContext.Idea.Include(p => p.IdeaCategory).Include(p=>p.User).FirstOrDefault(c => c.Id == comment.IdeaId);
                 if (idea.IdeaCategory.FinalClosureDate < DateTime.Now)
                 {
                     throw new Exception("Cannot add comment, The Category is expired");
@@ -32,9 +35,10 @@ namespace GreenwichCMS.DAO.Implementation
                 {
                     throw new Exception("Cannot add");
                 }
-
+                var authorComment = _greenwichContext.Users.FirstOrDefault(u => u.UserId == comment.ReplyBy);
                 _greenwichContext.Comment.Add(comment);
                 _greenwichContext.SaveChanges();
+                _sendEmail.NotifyCommentIdea(idea.User.Email,authorComment.Email);
                 return "ok";
             }
             catch (Exception e)

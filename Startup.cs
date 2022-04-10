@@ -70,6 +70,8 @@ namespace GreenwichCMS
             services.AddScoped<IReactionRepo, ReactionRepo>();
             services.AddScoped<IReactionService, ReactionService>();
 
+            services.AddSingleton<ISendEmail,SendEmail>();
+
             // Adding Authentication  
             services.AddAuthentication(options =>
             {

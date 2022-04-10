@@ -1,5 +1,6 @@
 ﻿using GreenwichCMS.Context;
 using GreenwichCMS.Models;
+using GreenwichCMS.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,18 +11,41 @@ namespace GreenwichCMS.DAO.Implementation
     public class ReactionRepo : IReactionRepo
     {
         private readonly GreenwichContext _greenwichContext;
-        public ReactionRepo(GreenwichContext greenwichContext)
+        private readonly ISendEmail _sendEmail;
+        public ReactionRepo(GreenwichContext greenwichContext, ISendEmail sendEmail)
         {
             _greenwichContext = greenwichContext;
+            _sendEmail = sendEmail;
         }
 
         public string AddReaction(Reaction reaction)
         {
             try
             {
-                _greenwichContext.Reaction.Add(reaction);
-                _greenwichContext.SaveChanges();
-                return "ok";
+                var existedReaction = _greenwichContext.Reaction.FirstOrDefault(r => r.UserId == reaction.UserId && r.IdeaId == reaction.IdeaId);
+                var currentIdea = _greenwichContext.Idea.Include(p => p.User).FirstOrDefault(i => i.Id == reaction.IdeaId);
+                var creatBy = _greenwichContext.Users.SingleOrDefault(u => u.UserId == reaction.UserId);
+                if (existedReaction != null)
+                {
+                    if (existedReaction.Context != reaction.Context)
+                    {
+                        existedReaction.Context = reaction.Context;
+                        _greenwichContext.SaveChanges();
+                        _sendEmail.NotifyReactIdea(currentIdea.User.Email, creatBy.UserName);
+                        return "ok";
+                    }
+                    else
+                    {
+                        throw new Exception("Reaction is existed");
+                    }
+                }
+                else
+                {
+                    _greenwichContext.Reaction.Add(reaction);
+                    _greenwichContext.SaveChanges();
+                    _sendEmail.NotifyReactIdea(currentIdea.User.Email, creatBy.UserName);
+                    return "ok";
+                }
             }
             catch (Exception e)
             {

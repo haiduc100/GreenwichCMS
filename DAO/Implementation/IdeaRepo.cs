@@ -1,6 +1,7 @@
 ﻿using GreenwichCMS.Context;
 using GreenwichCMS.Models;
 using GreenwichCMS.Models.DTOs;
+using GreenwichCMS.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,20 @@ namespace GreenwichCMS.DAO.Implementation
     public class IdeaRepo : IIdeaRepo
     {
         private readonly GreenwichContext _greenwichContext;
-        public IdeaRepo(GreenwichContext greenwichContext)
+        private readonly ISendEmail _sendEmail;
+        public IdeaRepo(GreenwichContext greenwichContext, ISendEmail sendEmail)
         {
             _greenwichContext = greenwichContext;
+            _sendEmail = sendEmail;
         }
         public string CreateIdea(IdeaDTOs idea, List<string> listFilePaths)
         {
             try
             {
                 var currentCate = _greenwichContext.IdeaCategory.FirstOrDefault(c => c.Title == idea.IdeaCategoryName);
+                var QA = _greenwichContext.Users.Include(p => p.Role).Where(p => p.Role.RoleName == "Quality Assurance Manager");
+                var listEmailQA = QA.Select(p => p.Email).ToList();
+
                 if (DateTime.Now > currentCate.FirstClosureDate)
                 {
                     throw new Exception("Expired to create ideas");
@@ -44,6 +50,7 @@ namespace GreenwichCMS.DAO.Implementation
                     Title = idea.Title,
                     Files = idea.Files
                 };
+
                 _greenwichContext.Idea.Add(newIdea);
                 _greenwichContext.SaveChanges();
 
@@ -60,7 +67,9 @@ namespace GreenwichCMS.DAO.Implementation
                 }
                 _greenwichContext.FileIdea.AddRange(listFileIdea);
                 _greenwichContext.SaveChanges();
+                _sendEmail.NotifyCreateNewIdea(listEmailQA, currentUser.Email);
                 return "ok";
+
             }
             catch (Exception ex)
             {
