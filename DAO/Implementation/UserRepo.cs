@@ -29,6 +29,7 @@ namespace GreenwichCMS.DAO.Implementation
                 LastName = user.LastName,
                 Password = user.Password,
                 UserName = user.UserName,
+                Email = user.Email,
                 Role = role,
                 RoleId = role.RoleId
             };
