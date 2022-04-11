@@ -34,7 +34,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpGet("userId")]
-        [Authorize]
+        // [Authorize]
         public IActionResult GetCommentsByUserId(Guid userId)
         {
             try
@@ -49,7 +49,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpGet("ideaId")]
-        [Authorize]
+        // [Authorize]
         public IActionResult GetCommentByIdeaId(Guid ideaId)
         {
             try
@@ -64,7 +64,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
+        // [Authorize]
         public IActionResult DeleteComment(Guid id, Guid CreateBy)
         {
             try
@@ -86,7 +86,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        // [Authorize]
         public IActionResult CreateComment(CommentDTOs comment)
         {
             try
@@ -108,7 +108,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPut]
-        [Authorize]
+        // [Authorize]
         public IActionResult UpdateComment(CommentDTOs comment, Guid CreateBy)
         {
             try

@@ -3,6 +3,7 @@ using GreenwichCMS.Context;
 using GreenwichCMS.DAO.Implementation;
 using GreenwichCMS.Models;
 using GreenwichCMS.Models.DTOs;
+using GreenwichCMS.Models.ModelPassFromClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +51,7 @@ namespace GreenwichCMS.Services.Implementation
             }
         }
 
-        public string DeleteReaction(ReactionDTOs reaction)
+        public string DeleteReaction(DeleteReactionFromClient reaction)
         {
             try
             {

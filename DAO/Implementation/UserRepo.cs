@@ -111,20 +111,28 @@ namespace GreenwichCMS.DAO.Implementation
 
         public bool UpdateUser(UserDTOs user)
         {
-            var currentUser = _greenwichContext.Users.Single(x => x.UserId == user.UserId);
-            var role = _greenwichContext.Roles.Single(x => x.RoleName == user.Role);
-            currentUser.DateOfBirth = user.DateOfBirth;
-            currentUser.Gender = user.Gender;
-            currentUser.FirstName = user.FirstName;
-            currentUser.LastName = user.LastName;
-            currentUser.RoleId = role.RoleId;
-            currentUser.Password = user.Password;
-            currentUser.UserName = user.UserName;
-            currentUser.Email = user.Email;
+            try
+            {
+                var currentUser = _greenwichContext.Users.Single(x => x.UserId == user.UserId);
+                var role = _greenwichContext.Roles.Single(x => x.RoleName == user.Role);
+                currentUser.DateOfBirth = user.DateOfBirth;
+                currentUser.Gender = user.Gender;
+                currentUser.FirstName = user.FirstName;
+                currentUser.LastName = user.LastName;
+                currentUser.RoleId = role.RoleId;
+                currentUser.Password = user.Password;
+                currentUser.UserName = user.UserName;
+                currentUser.Email = user.Email;
 
-            _greenwichContext.SaveChanges();
+                _greenwichContext.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
 
-            return true;
+
         }
     }
 }

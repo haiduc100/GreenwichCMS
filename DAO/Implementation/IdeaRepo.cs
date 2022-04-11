@@ -109,7 +109,7 @@ namespace GreenwichCMS.DAO.Implementation
                 .ThenInclude(p => p.Role)
                 .Include(p => p.IdeaCategory)
                 .Include(p => p.Reactions)
-                .Where(i=>i.IdeaCategory.Title==categoryName);
+                .Where(i => i.IdeaCategory.Title == categoryName);
             return listIdeas;
         }
 

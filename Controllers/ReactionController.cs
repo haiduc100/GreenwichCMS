@@ -51,7 +51,7 @@ namespace GreenwichCMS.Controllers
 
         [HttpDelete]
         // [Authorize]
-        public IActionResult DeleteReaction(ReactionDTOs reaction)
+        public IActionResult DeleteReaction(DeleteReactionFromClient reaction)
         {
             var signal = _reactionService.DeleteReaction(reaction);
             if (signal == "ok")
