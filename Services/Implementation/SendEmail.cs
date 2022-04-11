@@ -12,12 +12,12 @@ namespace GreenwichCMS.Services.Implementation
         public MailMessage Message { get; set; }
         public SendEmail()
         {
-            Client.Credentials = new NetworkCredential("tn01656423079", "nguyenvantuan");
+            Client.Credentials = new NetworkCredential("vanduc28062000", "nguyenvanduc");
             Client.EnableSsl = true;
             Client.Port = 25;
             Message = new MailMessage
             {
-                From = new MailAddress("tn01656423079@gmail.com", "TuanPointC"),
+                From = new MailAddress("vanduc28062000@gmail.com", "GreenwichCMS"),
                 IsBodyHtml = true,
                 Priority = MailPriority.Normal,
                 BodyEncoding = Encoding.UTF8

@@ -23,7 +23,7 @@ namespace GreenwichCMS.DAO.Implementation
             try
             {
                 var currentCate = _greenwichContext.IdeaCategory.FirstOrDefault(c => c.Title == idea.IdeaCategoryName);
-                var QA = _greenwichContext.Users.Include(p => p.Role).Where(p => p.Role.RoleName == "Quality Assurance Manager");
+                var QA = _greenwichContext.Users.Include(p => p.Role).Where(p => p.Role.RoleName == "Quality Assurance Coordinator");
                 var listEmailQA = QA.Select(p => p.Email).ToList();
 
                 if (DateTime.Now > currentCate.FirstClosureDate)
