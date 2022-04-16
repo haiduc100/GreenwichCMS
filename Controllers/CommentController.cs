@@ -94,7 +94,7 @@ namespace GreenwichCMS.Controllers
                 var signal = _commentService.CreateComment(comment);
                 if (signal == "ok")
                 {
-                    return Ok();
+                    return Ok(comment);
                 }
                 else
                 {

@@ -138,5 +138,10 @@ namespace GreenwichCMS.DAO.Implementation
                 return ex.Message;
             }
         }
+
+        public Idea GetIdeaById(Guid id)
+        {
+            return _greenwichContext.Idea.Include(p => p.Files).FirstOrDefault(i => i.Id == id);
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace GreenwichCMS.DAO
         public string UpdateIdea(Idea idea);
         public string DeleteIdea(Guid ideaId);
         public IEnumerable<Idea> GetIdeasByCategoryName(string categoryName);
+        public Idea GetIdeaById(Guid id);
 
     }
 }

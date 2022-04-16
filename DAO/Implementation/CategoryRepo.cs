@@ -58,7 +58,7 @@ namespace GreenwichCMS.DAO.Implementation
                 }
                 currentCategory.Title = category.Title;
                 currentCategory.FinalClosureDate = category.FinalClosureDate;
-                currentCategory.FinalClosureDate = category.FinalClosureDate;
+                currentCategory.FirstClosureDate = category.FirstClosureDate;
                 _greenwichContext.SaveChanges();
                 return "ok";
             }

@@ -12,5 +12,6 @@ namespace GreenwichCMS.Services.Implementation
         public string UpdateIdea(IdeaDTOs idea);
         public string DeleteIdea(Guid ideaId);
         public IEnumerable<IdeaDTOs> GetIdeasByCateName(string cateName);
+        public IdeaDTOs GetIdeaById(Guid id);
     }
 }

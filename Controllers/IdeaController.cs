@@ -1,6 +1,7 @@
 ﻿using GreenwichCMS.Models;
 using GreenwichCMS.Models.DTOs;
 using GreenwichCMS.Models.ModelPassFromClient;
+using GreenwichCMS.Services;
 using GreenwichCMS.Services.Implementation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -22,10 +23,12 @@ namespace GreenwichCMS.Controllers
     {
         private readonly IideaServices _ideaServices;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public IdeaController(IideaServices ideaServices, IWebHostEnvironment webHostEnvironment)
+        private readonly IZipFileService _zipFileService;
+        public IdeaController(IideaServices ideaServices, IWebHostEnvironment webHostEnvironment, IZipFileService zipFileService)
         {
             _ideaServices = ideaServices;
             _webHostEnvironment = webHostEnvironment;
+            _zipFileService = zipFileService;
         }
 
         [HttpGet]
@@ -63,7 +66,7 @@ namespace GreenwichCMS.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message); 
+                return BadRequest(ex.Message);
             }
         }
 
@@ -143,6 +146,18 @@ namespace GreenwichCMS.Controllers
             {
                 return BadRequest(signal);
             }
+        }
+
+        [HttpGet("download/{id}")]
+        public IActionResult DownloadFiles(Guid id)
+        {
+            var currentIdea = _ideaServices.GetIdeaById(id);
+            var listFilePaths = new List<string>();
+            listFilePaths.AddRange(currentIdea.Files.Select(f => f.FilePath));
+            var filepath = Path.Combine(_webHostEnvironment.ContentRootPath, "FileIdea");
+            var targetToSave = Path.Combine(filepath, currentIdea.Title + "file.zip");
+            _zipFileService.CreateZipFile(listFilePaths, targetToSave);
+            return Ok(targetToSave);
         }
     }
 }
