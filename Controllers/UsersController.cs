@@ -23,7 +23,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpGet]
-        // [Authorize]
+        [Authorize]
         public ActionResult<IEnumerable<UserDTOs>> GetUsers([FromQuery] PageParams pageParams)
         {
 
@@ -61,14 +61,14 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpGet("{id}")]
-        // [Authorize(Roles = "Quality Assurance Manager")]
+        [Authorize(Roles = "Quality Assurance Manager")]
         public ActionResult GetUserById(Guid id)
         {
             return Ok(_userServices.GetUserById(id));
         }
 
         [HttpPost]
-        // [Authorize(Roles = "Quality Assurance Manager")]
+        [Authorize(Roles = "Quality Assurance Manager")]
         public ActionResult CreateUser(UserDTOs user)
         {
             if (ModelState.IsValid)

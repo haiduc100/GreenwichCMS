@@ -1,0 +1,46 @@
+const express = require('express')            //  goi express vào để dùng
+
+const app = express()                         //  khỏi tạo app
+
+app.listen('4000')                            //  cấp cho app địa chỉ để nhận request
+
+=========================================================================
+
+req                 yêu cầu từ client gửi về server
+
+res                 phản hồi từ server trả về client
+
+res.send            gửi thông điệp về giao diện / HTML
+
+res.json(data)      gửi data json
+
+res.redirect(link)  điều hướng đến địa chỉ xác định
+
+res.sendFile(link)  gửi file về client
+                    link phải là tuyệt đối
+
+=========================================================
+
+app.use('/public', express.static(path.join(__dirname, './public')))
+
+xuất ra cả thư mục 
+
+==========================================================
+
+query
+client                  ?key=value&key2=value2
+                        có thể dùng hoặc không dùng query
+                        key, value do client toàn quyền quyết định
+
+server                  req.query
+
+==========================================================
+params
+
+server                  /:key/:key2/:key3
+                        setup để dùng params
+                        buộc phải truyền data vào param để gửi request
+                        key do server quy định
+
+client                  gọi đúng đường dẫn và truyền data
+                        client quyết định value

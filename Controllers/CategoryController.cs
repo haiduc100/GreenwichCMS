@@ -25,7 +25,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPost]
-        // [Authorize(Roles = "Quality Assurance Manager")]
+        [Authorize(Roles = "Quality Assurance Manager")]
         public IActionResult CreateCategory(PostCategoryFromClient cate)
         {
             var cateDto = new IdeaCategoryDTOs()
@@ -57,7 +57,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpDelete]
-        // [Authorize(Roles = "Quality Assurance Manager")]
+        [Authorize(Roles = "Quality Assurance Manager")]
         public IActionResult DeleteCategory(Guid id)
         {
             var signal = _categoryService.DeleteCategory(id);

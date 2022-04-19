@@ -32,7 +32,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpPost]
-        // [Authorize]
+        [Authorize]
         public IActionResult PostReactionsByIdea(PostReactionFromClient reaction)
         {
             var reactionDtos = new ReactionDTOs()
@@ -50,7 +50,7 @@ namespace GreenwichCMS.Controllers
         }
 
         [HttpDelete]
-        // [Authorize]
+        [Authorize]
         public IActionResult DeleteReaction(DeleteReactionFromClient reaction)
         {
             var signal = _reactionService.DeleteReaction(reaction);

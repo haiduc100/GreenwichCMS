@@ -44,7 +44,11 @@ namespace GreenwichCMS
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllersWithViews();
+            services.AddSpaStaticFiles(c =>
+            {
+                c.RootPath = "client/build";
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GreenwichCMS", Version = "v1" });
@@ -145,7 +149,7 @@ namespace GreenwichCMS
             });
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "client";
 
                 if (env.IsDevelopment())
                 {
