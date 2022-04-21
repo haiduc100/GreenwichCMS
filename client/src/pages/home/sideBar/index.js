@@ -14,6 +14,7 @@ import Avatar from '@mui/material/Avatar';
 import UserSetting from './UserSetting'
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import '../Home.css'
 
@@ -31,9 +32,18 @@ const Header = () => {
             setShowSetting(false)
         }
     }
+
+    if (!user) {
+        return (
+            <div className="admin-progress">
+                <CircularProgress />
+            </div>
+        )
+    }
+
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ backgroundColor: '#fff', color: '#333', position: 'fixed', zIndex: 1 }}>
+            <AppBar position="static" sx={{ backgroundColor: '#fff', color: '#333', zIndex: 1 }}>
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Grid item xs={1} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                         <IconButton
@@ -41,7 +51,7 @@ const Header = () => {
                             edge="start"
                             color="inherit"
                             aria-label="menu"
-                            sx={{ width: '280px' }}
+                            sx={{ width: { lg: '280px', xs: '200px' } }}
                             as={Link}
                             to='/home'
                         >
@@ -49,7 +59,7 @@ const Header = () => {
                         </IconButton>
                     </Grid>
 
-                    <Grid item xs={6} sx={{ display: 'flex', alignItems: 'center', ml: 15 }}>
+                    <Grid item xs={6} sx={{ alignItems: 'center', ml: 15, display: { md: 'flex', xs: 'none' } }}>
                         <input
                             className="search-input"
                             placeholder="Search ideas..."
@@ -57,28 +67,24 @@ const Header = () => {
                             onChange={e => setSearch(e.target.value)}
                         />
                         <Button >
-                            <SearchIcon sx={{ fontSize: 35, color: '#0c0f66' }} />
+                            <SearchIcon sx={{ fontSize: { md: 35, xs: 25 }, color: '#0c0f66' }} />
                         </Button>
                     </Grid>
-                    <Grid item xs={3} >
-                        <div className="side-bar__info">
-                            <div>
-                                <IconButton color="inherit" sx={{ ml: 10, mt: 1 }}>
-                                    <Badge badgeContent={4} color="primary">
-                                        <NotificationsOutlinedIcon sx={{ color: '#0c0f66' }} />
-                                    </Badge>
-                                </IconButton>
-                            </div>
-                            <div className="side-bar__info-name">
-                                <Avatar
-                                    src="https://www.hashatit.com/images/uploads/users/44840/profile_picture/xinh.jpg"
-                                    sx={{ width: 30, height: 30, mr: 0.5 }}
-                                />
-                                <div>{user.firstName} {user.lastName}</div>
-                                <IconButton sx={{ mt: 0.5 }} onClick={handelShowSetting}>
-                                    <KeyboardArrowDownOutlinedIcon />
-                                </IconButton>
-                            </div>
+                    <Grid item md={3} xs={5} >
+                        <div className="side-bar__info-name">
+                            <Avatar
+                                alt="Remy Sharp" src="https://th.bing.com/th/id/R.03e726787c9f981a4954f521a80424af?rik=Ceuu5CZ8AH5Msw&riu=http%3a%2f%2fcreativeartsworkshop.org%2fwp-content%2fuploads%2f2020%2f02%2fblank-profile-picture-973460_960_720-300x300-1-300x300.png&ehk=J%2bDw294HSHRvhlyrl6fvIPVYRvi7ZoffP0BxPNVmtgw%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1"
+                                sx={{
+                                    boxShadow: "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
+                                    width: 40,
+                                    height: 40,
+                                    mr: 0.5
+                                }}
+                            />
+                            <span>{user.firstName} {user.lastName}</span>
+                            <IconButton sx={{ mt: 0.5 }} onClick={handelShowSetting}>
+                                <KeyboardArrowDownOutlinedIcon />
+                            </IconButton>
                         </div>
                     </Grid>
                 </Toolbar>

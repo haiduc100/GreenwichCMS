@@ -11,8 +11,9 @@
 }
 
 .side-bar__info-name {
-  display: flex;
+  display: flex; 
   align-items: center;
+  justify-content:flex-end;
 }
 
 .search-input {
@@ -44,12 +45,8 @@
   text-align: center;
 }
 
-.manager-topic__add-topic {
-  margin: 120px 0 30px;
-}
-
 .manager-topic {
-  width: 95%;
+  width: 100%;
   max-height: 530px;
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
@@ -90,7 +87,7 @@
   border: 1px solid #333;
 }
 
-.manager-topic li:hover {
+.manager-topic li:hover{
   background-color: rgb(122, 207, 233);
 }
 
@@ -162,7 +159,7 @@
 }
 
 .dashboard-statistical {
-  background-color: #fff;
+  background-color: rgb(237, 227, 227);
   padding: 10px;
   height: 100px;
   border-radius: 5px;
@@ -176,19 +173,28 @@
   justify-content: space-between;
 }
 
-.dashboard-statistical__title {
-  max-width: 200px;
+.dashboard-statistical__title1 {
   font-size: 18px;
+  max-width: 200px;
   font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-statistical__title1 {
+    font-size: 15px;
+    max-width: 120px;
+    font-weight: bold;
+  }
 }
 
 .dashboard-statistical__number {
   text-align: center;
-  font-size: 30px;
+  font-size: 20px;
   margin-top: 20px;
 }
 
-.dashboard-statistical__bar-chart {
+.dashboard-statistical__pie-chart1,
+.dashboard-statistical__bar-chart1 {
   border-radius: 5px;
   border: 1px solid #333;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
@@ -198,14 +204,10 @@
   padding: 10px;
 }
 
-.dashboard-statistical__pie-chart {
-  border-radius: 5px;
-  border: 1px solid #333;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-  background-color: #fff;
-  height: 500px;
-  padding: 10px;
+@media screen and (max-width: 768px)  {
+  .dashboard-statistical__bar-chart1 {
+    height: 400px;
+  }
 }
 
 .bar-chart__title {
@@ -213,11 +215,6 @@
   font-weight: bold;
   text-align: center;
   color: rgb(77, 76, 76);
-}
-
-.bar-chart__chart {
-  width: 100%;
-  height: 90%;
 }
 
 .bar-chart__chart img {
@@ -245,7 +242,7 @@
   object-fit: cover;
 }
 
-.dashboard-statistical__line-chart {
+.dashboard-statistical__line-chart1 {
   height: 700px;
   border-radius: 5px;
   border: 1px solid #333;
@@ -254,6 +251,12 @@
   background-color: #fff;
   margin: 10px 0 20px;
   padding: 10px;
+}
+
+@media screen and (max-width: 768px)  {
+  .dashboard-statistical__line-chart1 {
+    height: 400px;
+  }
 }
 
 .line-chart__filter {
@@ -293,3 +296,4 @@
   height: 100%;
   object-fit: cover;
 }
+

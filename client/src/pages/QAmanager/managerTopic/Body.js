@@ -16,22 +16,20 @@ const Body = () => {
     return (
         <div>
             <Grid container sx={{ width: '90%', margin: '0 auto 10px' }} spacing={3}>
-                <Grid xs={12}>
-                    <div className="manager-topic__add-topic">
-                        <Button variant="contained" size="large" onClick={handleOpen}>
-                            <AddCircleOutlineOutlinedIcon />
-                            <span>Add Topic</span>
-                        </Button>
-                    </div>
+                <Grid xs={12} sx={{ textAlign: { md: 'left', xs: 'center' }, margin: '20px 0' }}>
+                    <Button variant="contained" size="large" onClick={handleOpen}>
+                        <AddCircleOutlineOutlinedIcon />
+                        <span>Add Topic</span>
+                    </Button>
                 </Grid>
                 <ModalCreateTopic props={props} />
                 <Grid container>
-                    <Grid item xs={3} >
+                    <Grid item md={3} xs={10} sx={{ margin: '0 auto 20px' }}>
                         <div className="manager-topic">
                             <LisTopic />
                         </div>
                     </Grid>
-                    <Grid item xs={9} >
+                    <Grid item md={9} xs={12} sx={{ mb: 2 }}>
                         <div className="manager-idea">
                             <ListIdea />
                         </div>

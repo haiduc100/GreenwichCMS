@@ -3,7 +3,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
@@ -11,20 +10,24 @@ import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems, secondaryListItems } from './ListItems';
-import { AppBar, Drawer } from '../../styled/AdminStyled'
-import CreateAccount from './CreateAccount'
-import ViewAllAccount from './ViewAllAccount'
-import CreateDeadline from './CreateDeadline'
+import { AppBar, Drawer } from '../../styled/AdminStyled';
+import CreateAccount from './CreateAccount';
+import ViewAllAccount from './ViewAllAccount';
+import CreateDeadline from './CreateDeadline';
+import ChangePassword from './ChangePassword';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CircularProgress from '@mui/material/CircularProgress';
-import { AuthContext } from '../../contexts/AuthContext'
-import { useEffect } from 'react'
+import { AuthContext } from '../../contexts/AuthContext';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import ListItemsMobile from './ListItemsMobile';
 
 import './index.css';
 
 const AdminPage = ({ task }) => {
     const [open, setOpen] = React.useState(true);
-    const { authState: { user, isAuthenticated }, logoutUser } = React.useContext(AuthContext);
+    const [openMenuMobile, setOpenMenuMobile] = React.useState(false);
+    const { authState: { user }, logoutUser } = React.useContext(AuthContext);
 
     useEffect(() => {
 
@@ -35,7 +38,7 @@ const AdminPage = ({ task }) => {
 
     if (!user) {
         return (
-            <div>
+            <div className="admin-progress">
                 <CircularProgress />
             </div>
         )
@@ -44,12 +47,28 @@ const AdminPage = ({ task }) => {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="absolute" open={open}>
+            <AppBar position="absolute" open={open} sx={{ width: '100%' }}>
                 <Toolbar
                     sx={{
                         pr: '24px', // keep right padding when drawer closed
                     }}
                 >
+                    <IconButton
+                        sx={{
+                            color: '#fff',
+                            display: { xs: 'block', sm: 'none' }
+                        }}
+                        onClick={() => {
+                            if (openMenuMobile) {
+                                setOpenMenuMobile(false)
+                            }
+                            else setOpenMenuMobile(true)
+                        }}
+                    >
+                        <MenuIcon />
+                    </IconButton >
+                    <ListItemsMobile openMenuMobile={openMenuMobile} />
+
                     <IconButton
                         edge="start"
                         color="inherit"
@@ -58,29 +77,32 @@ const AdminPage = ({ task }) => {
                         sx={{
                             marginRight: '36px',
                             ...(open && { display: 'none' }),
+                            display: { xs: 'none', sm: 'block' }
                         }}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        component="h1"
-                        variant="h6"
-                        color="inherit"
-                        noWrap
-                        sx={{ flexGrow: 1 }}
-                    >
-                        Admin Page
-                    </Typography>
-                    <div className="admin-control__logout">
-                        <p>Wellcome <span className="admin-control__name">{user.lastName} {user.firstName}</span> </p>
-                        <IconButton color="inherit" size="small" onClick={logoutUser}>
-                            <LogoutIcon />
-                            Logout
-                        </IconButton>
+
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                            <IconButton as={Link} to='/admin' sx={{
+                                textDecoration: 'none',
+                                color: '#fff',
+                            }}>
+                                Admin Page
+                            </IconButton>
+                        </div>
+                        <div className="admin-control__logout">
+                            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>Wellcome <span className="admin-control__name">{user.firstName} {user.lastName}</span> </Box>
+                            <IconButton color="inherit" size="small" onClick={logoutUser} as={Link} to='/login' sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+                                <LogoutIcon />
+                                Logout
+                            </IconButton>
+                        </div>
                     </div>
                 </Toolbar>
             </AppBar>
-            <Drawer variant="permanent" open={open}>
+            <Drawer variant="permanent" open={open} sx={{ display: { xs: 'none', sm: 'block' } }}>
                 <Toolbar
                     sx={{
                         display: 'flex',
@@ -121,7 +143,11 @@ const AdminPage = ({ task }) => {
                                 ? <ViewAllAccount />
                                 : task === 'deadline'
                                     ? <CreateDeadline />
-                                    : <ViewAllAccount />
+                                    : task === 'changepassword'
+                                        ? <ChangePassword />
+                                        : <div className="admin-page__background">
+                                            <img src="https://visco.edu.vn/wp-content/uploads/2020/12/maxresdefault-1.jpg" alt="" />
+                                        </div>
                         }
                     </Grid>
                 </Container>

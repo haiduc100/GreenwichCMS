@@ -9,44 +9,50 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { UserContext } from '../../contexts/UserContext';
 import SuccessAlert from '../../components/alert/SuccessAlert'
-import { Navigate } from 'react-router-dom';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 
 const CreateAccount = () => {
+    const [date, setDate] = React.useState(null);
+    const [dateValue, setDateValue] = React.useState(null);
     const { createNewUser } = React.useContext(UserContext)
     const [gen, setGen] = React.useState('male')
     const [role, setRole] = React.useState('Quality Assurance Manager')
-    const [showAler, setShowAler] = React.useState(false)
-    const [staffForm, setStaffForm] = React.useState({
+    const [department, setDepartment] = React.useState('GCH190102')
+    const [userForm, setUserForm] = React.useState({
         firstName: '',
         lastName: '',
-        dateOfBirth: '',
         userName: '',
         password: '',
+        email: '',
     });
-    const { firstName, lastName, dateOfBirth, userName, password } = staffForm
+    const { firstName, lastName, userName, password, email } = userForm
 
     const onchangeUserInfo = e => {
-        setStaffForm({ ...staffForm, gender: gen, role: role, [e.target.name]: e.target.value });
+        setUserForm({ ...userForm, gender: gen, role, dateOfBirth: dateValue, department, [e.target.name]: e.target.value });
+    }
+
+    const handelChangeDateOfBirth = newValue => {
+        setDate(newValue);
+        if (newValue.getMonth() < 10) {
+            setDateValue(`${newValue.getFullYear()}-0${newValue.getMonth() + 1}-${newValue.getDate()}`)
+        }
+        else {
+            setDateValue(`${newValue.getFullYear()}-${newValue.getMonth()}-${newValue.getDate()}`)
+        }
     }
 
     const handelCreate = async (e) => {
         e.preventDefault();
-        await createNewUser(staffForm)
-        setShowAler(true)
-        setTimeout(() => {
-            setShowAler(false)
-        }, 3000)
-
+        const createUser = await createNewUser(userForm)
+        if (createUser.status === 200) {
+            window.alert("Create new user successfully!")
+        }
     }
-
-    <Navigate to="/admin/viewAll" />
 
     return (
         <React.Fragment>
-            {showAler ?
-                <SuccessAlert />
-                : null
-            }
             <Typography variant="h4" gutterBottom>
                 Create new account
             </Typography>
@@ -79,17 +85,17 @@ const CreateAccount = () => {
                         />
                     </Grid>
                     <Grid item xs={12} sm={6} >
-                        <TextField
-                            required
-                            id="dateOfBirth"
-                            name="dateOfBirth"
-                            label="Date Of Birth"
-                            value={dateOfBirth}
-                            onChange={onchangeUserInfo}
-                            fullWidth
-                            autoComplete="shipping address-line1"
-                            variant="standard"
-                        />
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <DatePicker
+                                label="Date of birth"
+                                variant="standard"
+                                value={date}
+                                onChange={(newValue) => {
+                                    handelChangeDateOfBirth(newValue)
+                                }}
+                                renderInput={(params) => <TextField {...params} />}
+                            />
+                        </LocalizationProvider>
                     </Grid>
                     <Grid item xs={12} sm={6} >
                         <FormControl variant="standard" sx={{ width: '100%' }}>
@@ -108,6 +114,20 @@ const CreateAccount = () => {
                             </Select>
                         </FormControl>
                     </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            required
+                            type="email"
+                            id="email"
+                            name="email"
+                            label="Email"
+                            value={email}
+                            onChange={onchangeUserInfo}
+                            fullWidth
+                            autoComplete="family-name"
+                            variant="standard"
+                        />
+                    </Grid>
                     <Grid item xs={12} sm={6} >
                         <FormControl variant="standard" sx={{ width: '100%' }}>
                             <InputLabel id="demo-simple-select-standard-label">Department</InputLabel>
@@ -115,12 +135,17 @@ const CreateAccount = () => {
                                 labelId="demo-simple-select-standard-label"
                                 id="demo-simple-select-standard"
                                 label="department"
+                                value={department}
+                                onChange={e => setDepartment(e.target.value)}
                                 required
                             >
-                                <MenuItem value='Quality Assurance Manager'>Quality Assurance Manager</MenuItem>
-                                <MenuItem value='Quality Assurance Coordinator'>Quality Assurance Coordinator</MenuItem>
-                                <MenuItem value='Staff'>Staff</MenuItem>
-                                <MenuItem value='Admin'>Admin</MenuItem>
+                                <MenuItem value='GCH190102'>GCH190102</MenuItem>
+                                <MenuItem value='GCH190103'>GCH190103</MenuItem>
+                                <MenuItem value='GCH190104'>GCH190104</MenuItem>
+                                <MenuItem value='GCH190106'>GCH190105</MenuItem>
+                                <MenuItem value='GCH190107'>GCH190106</MenuItem>
+                                <MenuItem value='GCH190108'>GCH190107</MenuItem>
+                                <MenuItem value='GCH190109'>GCH190108</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>

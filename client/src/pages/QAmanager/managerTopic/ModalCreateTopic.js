@@ -22,20 +22,28 @@ const style = {
 
 const ModalCreateTopic = ({ props }) => {
     const { open, handleClose } = props;
-    const { createNewTopic } = React.useContext(TopicContext)
-    const [formTopic, setFormTopic] = React.useState({
-        title: ''
-    })
-    const { title } = formTopic;
-
-    const handelOnchangeTopic = e => {
-        setFormTopic({ ...formTopic, [e.target.name]: e.target.value });
-    }
+    const { topicState: { topics }, createNewTopic } = React.useContext(TopicContext)
+    const [title, setTitle] = React.useState('')
 
     const handelCreateTopic = async (e) => {
         e.preventDefault();
-        await createNewTopic(formTopic)
-        handleClose();
+
+        const checkTopic = topics.some((topic) => {
+            return title === topic.title
+        })
+
+        if (checkTopic) {
+            window.alert('this topic is already exists!')
+            setTitle('')
+        }
+        else {
+            const createTopic = await createNewTopic({ title: title });
+            if (createTopic.status === 200) {
+                setTitle('');
+                handleClose();
+                window.alert('create new topic successfully!')
+            }
+        }
     }
 
     return (
@@ -48,7 +56,7 @@ const ModalCreateTopic = ({ props }) => {
             >
                 <Box sx={style}>
                     <h1 className="modal-create__title">Create new Topic</h1>
-                    <form action="" >
+                    <form action="" onSubmit={handelCreateTopic}>
                         <TextField
                             required
                             fullWidth
@@ -57,7 +65,7 @@ const ModalCreateTopic = ({ props }) => {
                             name="title"
                             autoComplete="title"
                             value={title}
-                            onChange={handelOnchangeTopic}
+                            onChange={e => setTitle(e.target.value)}
                             autoFocus
                         />
                         <Button
@@ -65,11 +73,13 @@ const ModalCreateTopic = ({ props }) => {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            onSubmit={handelCreateTopic}
                         >
                             create
                         </Button>
                     </form>
+                    <div style={{ textAlign: 'right' }}>
+                        <Button variant="outlined" onClick={handleClose} >Cancel</Button>
+                    </div>
                 </Box>
             </Modal>
         </div>

@@ -8,15 +8,7 @@ const Body = () => {
     return (
         <div>
             <Grid container sx={{ width: '90%', margin: '0 auto 10px' }} spacing={3}>
-                <Grid xs={12}>
-                    <div className="manager-topic__add-topic">
-                        <Button variant="contained" size="large">
-                            <FileDownloadOutlinedIcon />
-                            <span>Download File Zip</span>
-                        </Button>
-                    </div>
-                </Grid>
-                <Grid container>
+                <Grid item xs={12} sx={{ mt: 2 }}>
                     <TableDownload />
                 </Grid>
             </Grid>

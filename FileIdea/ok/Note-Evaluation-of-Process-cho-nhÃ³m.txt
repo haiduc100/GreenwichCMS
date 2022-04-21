@@ -1,0 +1,37 @@
+Lúc viết mọi người nghĩ lại cách chúng ta đã họp hàng ngày, cách xem sprint tiến độ như nào, rồi chém gió là ok
+
+Ở đây tôi sẽ đưa ra các tiêu chuẩn mọi người nên có trong mục "Evaluation of Process":
+*Mọi người cứ làm theo thứ tự nhé, còn nội dung sẽ khác nhau bởi mỗi người*
+*Cái này tôi trích một phần của bài tôi*
+
+1. Giới thiệu cách mà nhóm tiếp cận và áp dụng Scrum ntn:
+Ví dụ: Trước khi bắt đầu dự án, nhóm chúng tôi được scrum master hướng đến công cụ quản lý dự án là "Jira".  Sau đó chúng tôi được nắm bắt cơ bản về cách xem product backlog, sprint backlog, biểu đồ burndown chart, thống nhất các quy định của mỗi buổi họp.... (mọi người nghĩ thêm)
+
+
+2. Product backlog:
+Khi bắt đầu dự án, scrum master sẽ show cho chúng tôi Product backlog, đây là một danh sách các tính năng được scrum master sắp xếp theo thứ tự ưu tiên bao gồm các lộ trình và yêu cầu của mỗi sprint, điều này giúp chúng tôi hiểu được tính năng nào là ưu tiên dựa trên độ quan trọng của các tính năng trong dự án... (mọi người chém thêm)
+
+
+3. Print backlog
+Sprint của chúng tôi được phân ra thành 5 sprint. Mỗi sprint, scrum master sẽ sắp xếp các tính năng theo thứ tự ưu tiên. Ở đây chúng tôi sẽ dùng công cụ "Jira", Các tính năng sẽ được scrum master ước lượng số giờ hoàn thành, mỗi tính năng sẽ phân công theo từng vai trò của mỗi thành viên trong nhóm, khi hoàn thành các tính năng được giao, scrum master sẽ ghi lại số giờ mà chúng tôi hoàn thành lên "bảng sprint backlog". Điều này giúp cả nhóm có thể biết được tiến độ hiện tại của nhóm đang ở đâu, có những khó khăn gì cần giải quyết.... (mọi người chém thêm)
+
+
+4. Burndown chart
+Burndown chart là cần thiết đối với chúng tôi, nó thể hiện được tiến độ của chúng tôi dựa trên thời gian còn lại đã được ước tính ban đầu. Mỗi khi hoàn thành các tính năng, nhóm chúng tôi sẽ mở một cuộc họp để xem lại tiến độ của nhóm. Scrum master sẽ đưa ra các phân tích để nhóm hiểu các vấn đề gặp phải, sau đó chúng tôi sẽ có các đóng góp, đưa ra các khó khăn mà chúng tôi gặp phải để có các giải pháp khắc phục việc tiến độ bị chậm hoặc quá nhanh. (mọi người chém thêm) 
+
+
+5. Meeting Minutes
+Sau mỗi ngày, scrum master sẽ mở cuộc họp với khoảng thời gian từ 20-30p. Cuộc họp sẽ bao gồm việc ra soát các tính năng đã hoàn thành, các thành viên trong nhóm sẽ đưa ra các khó khăn đang gặp phải và đề xuất chỉnh sửa cần thiết cho dự án. Sau đó Scrum master sẽ được ra bản chỉnh sửa cuối cùng vào gồm giải pháp, bản kế hoạch cần làm trong ngày tiếp theo.
+
+
+6. Ưu và nhược điểm (cái này sẽ là đánh giá của mỗi người về cách sử dụng scrum, mọi người có phát hiện gì về ưu và nhược điểm của nó thì cứ chém vào)
+Ví dụ như ưu điểm của nó là giúp nhóm tập trung trong cuộc việc, không bị bỏ sót các tính năng, nắm bắt được thời gian của dự án, có thêm kinh nghiệm gì gì đấy...........
+
+
+7. Trở ngại trong việc áp dụng scrum
+- Trở ngại của nhóm mình thì tôi sẽ thống nhất có 2 khó khăn nhé:
++ Gặp khó khăn về tiến độ với sprint đầu tiên khi chưa quen với mô mình scrum: Giải pháp: Các thành viên trong nhóm trình bày lý do gặp khó khăn khi mới tiếp cận sprint, sau đó scrum master giải thích lại cách sử dụng sprint với công cụ "Jira" 
++ Bị chậm tiến độ do thiếu thành viên (backend- bị covid): Scrum master sẽ thực hiện meeting ngay lập tức, sau đó thực hiện đẩy các task của fontend là ưu tiên. 
+
+*(cái này mọi người chém thêm nhưng xoay cách cái giải pháp để tránh không đồng nhất)*
+

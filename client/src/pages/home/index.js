@@ -1,14 +1,25 @@
 import React from 'react';
 import SideBar from './sideBar'
-import Body from './Body'
+import HomePage from './HomePage'
+import PostIdea from './postIdea'
+import IdeaDetail from './ideaDetail'
 
-const HomePage = () => {
+const Home = ({ task }) => {
     return (
         <>
             <SideBar />
-            <Body />
+            {task === 'postIdea'
+                ? <PostIdea />
+                : task === 'ideaDetail'
+                    ? <IdeaDetail />
+                    //     : task === 'deadline'
+                    //         ? <CreateDeadline />
+                    //         : task === 'changepassword'
+                    //             ? <ChangePassword />
+                    : <HomePage />
+            }
         </>
     );
 };
 
-export default HomePage;
+export default Home;

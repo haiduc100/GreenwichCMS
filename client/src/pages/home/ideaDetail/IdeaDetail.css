@@ -12,29 +12,55 @@
 }
 
 .idea-detail__container-name {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
 }
 
-.idea-detail__container-name span {
-  font-size: 15px;
-  color: rgb(139, 139, 139);
-  font-weight: normal;
-  margin-left: 5px;
-}
-
 .idea-detail__container-topic {
-  width: 80px;
+  /* min-width: 80px; */
+  max-width: 395px;
   padding: 5px 10px;
-  background-color: #7193fc;
+  background-color: #4991df;
   color: #fff;
   border-radius: 5px;
   margin: 10px 0 30px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .idea-detail__container-content {
   text-align: justify;
   margin-bottom: 20px;
+  font-size: 16px;
+}
+
+@media screen and (max-width: 600px) {
+  .idea-detail__container-content {
+    font-size: 14px;
+  }
+  .idea-detail__container-name {
+    font-size: 17px
+  }
+  .idea-detail__container-topic {
+    max-width: 118px;
+    font-size: 15px;
+  }
+  .idea-detail__container-file-name {
+    font-size: 10px;
+  }
+  .Comment-detail__name {
+    font-size: 14px;
+  }
+  .Comment-detail__time {
+    font-size: 14px;
+  }
+  span {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+
 }
 
 .idea-detail__container-file-item {
@@ -62,7 +88,7 @@
 }
 
 .idea-detail__container-file-name {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: bold;
   color: rgb(71, 71, 71);
 }
@@ -85,16 +111,14 @@
 .idea-comment__send-icon {
   position: absolute;
   top: 13px;
-  right: 0;
+  right: -40px;
 }
 
 .Comment-detail__name {
-  font-size: 17px;
   margin-right: 5px;
   font-weight: bold;
 }
 
 .Comment-detail__time {
-  font-size: 15px;
   color: rgb(134, 133, 133);
 }

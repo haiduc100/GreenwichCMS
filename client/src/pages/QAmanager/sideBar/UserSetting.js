@@ -11,6 +11,7 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import PageviewOutlinedIcon from '@mui/icons-material/PageviewOutlined';
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { Link } from 'react-router-dom'
 
 import '../index.css';
@@ -51,7 +52,7 @@ const UserSetting = ({ props }) => {
                             />
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton as={Link} to="/manager-topic">
+                            <ListItemButton as={Link} to="/manager-topic" sx={{ textDecoration: 'none', color: '#333' }}>
                                 <ListItemIcon>
                                     <FolderOpenOutlinedIcon />
                                 </ListItemIcon>
@@ -59,7 +60,7 @@ const UserSetting = ({ props }) => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton as={Link} to="/dashboard">
+                            <ListItemButton as={Link} to="/dashboard" sx={{ textDecoration: 'none', color: '#333' }}>
                                 <ListItemIcon>
                                     <PageviewOutlinedIcon />
                                 </ListItemIcon>
@@ -67,7 +68,7 @@ const UserSetting = ({ props }) => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton as={Link} to='/download-file'>
+                            <ListItemButton as={Link} to='/download-file' sx={{ textDecoration: 'none', color: '#333' }}>
                                 <ListItemIcon>
                                     <FileDownloadOutlinedIcon />
                                 </ListItemIcon>
@@ -75,7 +76,15 @@ const UserSetting = ({ props }) => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton onClick={logoutUser}>
+                            <ListItemButton as={Link} to='/change-password-qapage' sx={{ textDecoration: 'none', color: '#333' }}>
+                                <ListItemIcon>
+                                    <SettingsIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Change password" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={logoutUser} as={Link} to='/login'>
                                 <ListItemIcon>
                                     <LogoutIcon />
                                 </ListItemIcon>

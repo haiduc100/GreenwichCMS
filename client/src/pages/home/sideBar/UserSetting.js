@@ -7,6 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
+import SettingsIcon from '@mui/icons-material/Settings';
 import Switch from '@mui/material/Switch';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import { Link } from 'react-router-dom'
@@ -49,15 +50,15 @@ const UserSetting = ({ props }) => {
                             />
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton as={Link} to='/postIdea'>
+                            <ListItemButton as={Link} to='/change-password-homepage' sx={{ textDecoration: 'none', color: '#333' }}>
                                 <ListItemIcon>
-                                    <AddBoxOutlinedIcon />
+                                    <SettingsIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="Create idea" />
+                                <ListItemText primary="Change password" />
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton onClick={logoutUser}>
+                            <ListItemButton onClick={logoutUser} as={Link} to='/login'>
                                 <ListItemIcon>
                                     <LogoutIcon />
                                 </ListItemIcon>

@@ -35,20 +35,31 @@ const LoginPage = () => {
     const handleSubmit = async event => {
         event.preventDefault();
 
-        await loginUser(loginForm);
+        const login = await loginUser(loginForm);
+
+        if (userName === "") {
+            window.alert("Usernames can't be empty!")
+        }
+        else if (password === "") {
+            window.alert("password can't be empty!")
+        }
+        else if (login.status === 401) {
+            window.alert("userName or password is incorrect!")
+        }
 
     };
 
     if (isAuthenticated && user.role === 'Admin') {
         return <Navigate to='/admin' />
     }
-
     else if (isAuthenticated && user.role === 'Staff') {
         return <Navigate to='/home' />
     }
-
     else if (isAuthenticated && user.role === 'Quality Assurance Manager') {
         return <Navigate to='/qa-manager' />
+    }
+    else if (isAuthenticated && user.role === 'Quality Assurance Coordinator') {
+        return <Navigate to='/qa-coordinator' />
     }
 
     return (
@@ -96,9 +107,10 @@ const LoginPage = () => {
                             onChange={onchangeLoginForm}
                         />
                         {viewPassword
-                            ? <VisibilityOffOutlinedIcon className="viewPassword" onClick={setViewPassword.bind(this, false)} />
-                            : <RemoveRedEyeOutlinedIcon className="viewPassword" onClick={setViewPassword.bind(this, true)} />
+                            ? <RemoveRedEyeOutlinedIcon className="viewPassword" onClick={setViewPassword.bind(this, false)} />
+                            : <VisibilityOffOutlinedIcon className="viewPassword" onClick={setViewPassword.bind(this, true)} />
                         }
+
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"

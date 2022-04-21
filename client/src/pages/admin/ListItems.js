@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import PeopleIcon from '@mui/icons-material/People';
+import SettingsIcon from '@mui/icons-material/Settings';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
@@ -29,6 +30,12 @@ export const mainListItems = (
                 <AccessTimeFilledIcon />
             </ListItemIcon>
             <ListItemText primary="Topic and Deadline" style={{ color: 'rgb(61 55 47)' }} />
+        </ListItemButton>
+        <ListItemButton as={NavLink} activeclassname="active" to='/admin/setting'>
+            <ListItemIcon>
+                <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Change password" style={{ color: 'rgb(61 55 47)' }} />
         </ListItemButton>
     </React.Fragment>
 );

@@ -42,6 +42,7 @@ namespace GreenwichCMS.Controllers
                       Token = token,
                       User = new
                       {
+                          currentUser.UserId,
                           currentUser.UserName,
                           currentUser.FirstName,
                           currentUser.LastName,

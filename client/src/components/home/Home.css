@@ -4,6 +4,12 @@
     rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
+.topic-list__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .side-bar__info {
   display: flex;
   align-items: center;

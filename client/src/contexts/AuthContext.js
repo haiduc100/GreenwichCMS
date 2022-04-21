@@ -19,7 +19,6 @@ const AuthContextProvider = ({ children }) => {
             try {
                 const response = await axios.get(`${apiUrl}/Users/${id}`)
                 if (response.status === 200) {
-                    console.log("ok")
                     dispatch({
                         type: 'SET_AUTH', payload: {
                             isAuthenticated: true,
@@ -29,6 +28,7 @@ const AuthContextProvider = ({ children }) => {
                 }
             } catch (error) {
                 localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME)
+                localStorage.removeItem(USER_ID)
                 setAuthToken(null)
                 dispatch({
                     type: 'SET_AUTH', payload: {
@@ -55,7 +55,7 @@ const AuthContextProvider = ({ children }) => {
                 localStorage.setItem(USER_ID, id);
                 await loadUser(id);
             }
-            return response.data
+            return response
         } catch (error) {
             return error.response.data
         }
@@ -72,10 +72,20 @@ const AuthContextProvider = ({ children }) => {
         })
     }
 
+    const changePassword = async userForm => {
+        try {
+            const res = await axios.post(`${apiUrl}/account/ChangePassword`, userForm)
+            return res
+        } catch (error) {
+            return error.response.data
+        }
+    }
+
     const AuthData = {
         authState,
         loginUser,
-        logoutUser
+        logoutUser,
+        changePassword
     }
 
     return (
