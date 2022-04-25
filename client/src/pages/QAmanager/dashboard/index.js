@@ -85,7 +85,7 @@ const Dashboard = () => {
                                     <img src={Networking} alt="" />
                                 </div>
                             </div>
-                            <div className="dashboard-statistical__number">5</div>
+                            <div className="dashboard-statistical__number">8</div>
                         </div>
                     </Grid>
                 </Grid>

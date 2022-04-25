@@ -29,6 +29,7 @@ const TopicContextProvider = ({ children }) => {
     const createNewTopic = async title => {
         try {
             const response = await axios.post(`${apiUrl}/Category`, title)
+            console.log(response);
             if (response.status === 200) {
                 dispatch({
                     type: 'CREATE_NEW_TOPIC',

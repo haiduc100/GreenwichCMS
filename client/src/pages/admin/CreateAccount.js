@@ -8,12 +8,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { UserContext } from '../../contexts/UserContext';
-import SuccessAlert from '../../components/alert/SuccessAlert'
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
+import { useNavigate } from "react-router-dom";
 
 const CreateAccount = () => {
+    let navigate = useNavigate();
     const [date, setDate] = React.useState(null);
     const [dateValue, setDateValue] = React.useState(null);
     const { createNewUser } = React.useContext(UserContext)
@@ -48,6 +49,7 @@ const CreateAccount = () => {
         const createUser = await createNewUser(userForm)
         if (createUser.status === 200) {
             window.alert("Create new user successfully!")
+            navigate("/admin/viewAll")
         }
     }
 

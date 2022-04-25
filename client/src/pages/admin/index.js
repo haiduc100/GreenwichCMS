@@ -9,12 +9,14 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { mainListItems, secondaryListItems } from './ListItems';
+import { mainListItems } from './ListItems';
 import { AppBar, Drawer } from '../../styled/AdminStyled';
 import CreateAccount from './CreateAccount';
 import ViewAllAccount from './ViewAllAccount';
 import CreateDeadline from './CreateDeadline';
 import ChangePassword from './ChangePassword';
+import ViewDeadline from './ViewDeadline';
+import DetailTopicManager from './DetailTopicManager';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CircularProgress from '@mui/material/CircularProgress';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -119,7 +121,6 @@ const AdminPage = ({ task }) => {
                 <List component="nav">
                     {mainListItems}
                     <Divider sx={{ my: 1 }} />
-                    {secondaryListItems}
                 </List>
             </Drawer>
             <Box
@@ -145,9 +146,13 @@ const AdminPage = ({ task }) => {
                                     ? <CreateDeadline />
                                     : task === 'changepassword'
                                         ? <ChangePassword />
-                                        : <div className="admin-page__background">
-                                            <img src="https://visco.edu.vn/wp-content/uploads/2020/12/maxresdefault-1.jpg" alt="" />
-                                        </div>
+                                        : task === 'viewDeadline'
+                                            ? <ViewDeadline />
+                                            : task === 'viewDeadlineDetail'
+                                                ? <DetailTopicManager />
+                                                : <div className="admin-page__background">
+                                                    <img src="https://visco.edu.vn/wp-content/uploads/2020/12/maxresdefault-1.jpg" alt="" />
+                                                </div>
                         }
                     </Grid>
                 </Container>

@@ -42,6 +42,8 @@ function App() {
                   <Route path="/admin/create" element={<AdminPage task='create' />} />
                   <Route path="/admin/viewAll" element={<AdminPage task='viewAll' />} />
                   <Route path="/admin/deadline" element={<AdminPage task='deadline' />} />
+                  <Route path="/admin/viewDeadline" element={<AdminPage task='viewDeadline' />} />
+                  <Route path="/admin/viewDetailDeadline" element={<AdminPage task='viewDeadlineDetail' />} />
                   <Route path="/admin/setting" element={<AdminPage task='changepassword' />} />
 
                   <Route path="/qa-manager" element={<ProtectedRouteQAManager redirectTo='/login'>

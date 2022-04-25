@@ -16,20 +16,20 @@ const ListIdea = () => {
                     <h1>{topic.title}</h1>
                 }
             </div>
-            {ideas.length > 0
+            {ideas.length > 0 && topic !== null
                 ?
                 <ul>
                     {ideas.map(idea => {
                         return (
                             <li key={idea.id}>
                                 <div className="idea-item__name">
-                                    Vũ Hoàng Hà
+                                    {idea.userName}
                                 </div>
                                 <div className="idea-item__content">
                                     {idea.content}
                                 </div>
                                 <div className="idea-item__date">
-                                    28-3-2000
+                                    {topic.firstClosureDate.slice(0, 10)}
                                 </div>
                             </li>
                         )

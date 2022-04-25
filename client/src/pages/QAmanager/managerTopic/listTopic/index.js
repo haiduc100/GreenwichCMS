@@ -6,14 +6,17 @@ import { IdeaContext } from '../../../../contexts/IdeaContext';
 
 const ListTopic = () => {
 
-    const { getAllTopic, topicState: { topics }, deleteTopic, findTopic } = useContext(TopicContext)
-    const { viewIdeaByCategoryName } = useContext(IdeaContext)
-    useEffect(() => { getAllTopic() }, [])
+    const { getAllTopic, topicState: { topics, topic }, deleteTopic, findTopic } = useContext(TopicContext)
+    const { ideaState: { ideas }, viewIdeaByCategoryName } = useContext(IdeaContext)
+    useEffect(() => { getAllTopic() }, [topics.length])
 
-    const handelDeleteTopic = async id => {
+    const handelDeleteTopic = async () => {
         const choose = window.confirm('Are you sure you want to delete this topic?')
-        if (choose) {
-            await deleteTopic(id)
+        if (ideas.length > 0) {
+            window.alert('This topic has an idea!')
+        }
+        else if (choose && ideas.length <= 0) {
+            await deleteTopic(topic.ideaCategoryId)
         }
     }
 
@@ -26,12 +29,11 @@ const ListTopic = () => {
         <div >
             <ul>
                 {topics.map(topic => {
-                    console.log(topic);
                     return (
                         <li key={topic.ideaCategoryId} onClick={chooseTopic.bind(this, topic)}>
                             <span style={{ lineHeight: '25px' }}>{topic.title}</span>
                             <div className="list-topic__control">
-                                <IconButton onClick={handelDeleteTopic.bind(this, topic.ideaCategoryId)}>
+                                <IconButton onClick={handelDeleteTopic}>
                                     <DeleteOutlinedIcon />
                                 </IconButton>
                             </div>

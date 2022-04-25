@@ -24,7 +24,7 @@ const BarChart = () => {
         labels: ['GCH190102', 'GCH190103', 'GCH190104', 'GCH190105', 'GCH190106', 'GCH190107', 'GCH190108', 'GCH190109'],
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3, 7, 8],
+            data: [10, 1, 0, 0, 0, 0, 0, 0],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

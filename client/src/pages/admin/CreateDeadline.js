@@ -29,6 +29,7 @@ const CreateDeadline = () => {
     };
 
     const handelChangeDeadlineTopic = (newValue) => {
+        console.log(newValue.getMonth());
         setDeadlineTopic(newValue)
         if (newValue.getMonth() < 10) {
             setDeadlineTopicValue(`${newValue.getFullYear()}-0${newValue.getMonth() + 1}-${newValue.getDate()}`)

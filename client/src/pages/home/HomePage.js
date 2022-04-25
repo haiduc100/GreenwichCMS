@@ -28,13 +28,12 @@ import "./Home.css"
 const Body = () => {
     const [currentPage, setCurrentPage] = React.useState(1);
     const [ideaPerPage] = React.useState(5);
-    const [link, setLink] = React.useState("")
 
     const { ideaState: { ideas }, getAllIdea, findIdea, downloadFile } = React.useContext(IdeaContext)
     const { reactionState: { reactions }, getReactionByUser } = React.useContext(ReactionContext)
     const { authState: { user } } = React.useContext(AuthContext)
     React.useEffect(() => { getReactionByUser(user.userId) }, [])
-    React.useEffect(() => { getAllIdea() }, [])
+    React.useEffect(() => { getAllIdea() }, [ideas.length])
 
     const newIdeas = ideas.sort((a, b) => {
         return b.likeCount - a.likeCount
@@ -56,8 +55,7 @@ const Body = () => {
         const file = await downloadFile(id)
         const url = file.slice(61)
         saveAs(
-            `https://localhost:5001/FileIdea\\${url}`,
-            "example.docx"
+            `https://localhost:5001/FileIdea\\${url}`
         );
     }
 

@@ -79,7 +79,7 @@
   list-style: none;
   background-color: #fff;
   margin: 10px 0;
-  line-height: 50px;
+  /* line-height: 50px; */
   border-radius: 5px;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,

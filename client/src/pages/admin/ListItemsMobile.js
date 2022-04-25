@@ -12,7 +12,6 @@ const ListItemsMobile = ({ openMenuMobile }) => {
             <List component="nav">
                 {mainListItems}
                 <Divider sx={{ my: 1 }} />
-                {secondaryListItems}
             </List>
         </Box>
     );

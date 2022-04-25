@@ -15,6 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { useNavigate } from 'react-router-dom';
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
@@ -33,6 +34,7 @@ const style = {
 };
 
 const CreatePost = () => {
+    let Navigate = useNavigate()
     const [files, setFiles] = React.useState([]);
     const [content, setContent] = React.useState('')
     const [checked, setChecked] = React.useState(false);
@@ -93,6 +95,9 @@ const CreatePost = () => {
         await createNewIdea(formData)
         handleClose()
         window.alert("Create idea successfully!")
+        setContent("")
+        setChecked(false)
+        setFiles([])
     }
     return (
         <>

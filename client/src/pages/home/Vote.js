@@ -16,8 +16,8 @@ const Vote = ({ data }) => {
     const { ideaData, reaction } = data
     const [like, setLike] = useState(ideaData.likeCount)
     const [dislike, setDislike] = useState(ideaData.disLikeCount)
-    const [likeActive, setLikeActive] = useState(reaction !== undefined ? reaction.context ? true : false : false)
-    const [dislikeActive, setDislikeActive] = useState(reaction !== undefined ? reaction.context ? false : true : false)
+    const [likeActive, setLikeActive] = useState(reaction !== undefined ? reaction.context : false)
+    const [dislikeActive, setDislikeActive] = useState(reaction !== undefined ? !reaction.context : false)
     const { PostReaction, deleteReaction } = React.useContext(ReactionContext)
     const { authState: { user } } = React.useContext(AuthContext)
     const { ideaState: { idea } } = React.useContext(IdeaContext)
